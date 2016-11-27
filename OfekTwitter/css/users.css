@@ -21,6 +21,11 @@
     display: inline-block;
 }
 
+.navbar ul {
+    float: right;
+    margin: 0.3%;
+}
+
 .navbar .navbar_options li {
     list-style-type: none;
     margin: 0;
@@ -28,6 +33,7 @@
     display: inline;
     text-align: center;
     float: right;
+    margin-right: 10px
 }
 
 h5 {
