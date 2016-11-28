@@ -34,7 +34,7 @@ body {
     animation-duration: 1.5s;
 }
 
-/*.light-green{
+.light-green{
     background: #BADA55;
 }
 
@@ -52,7 +52,7 @@ body {
 
 .deeppink {
     background: deeppink;
-}*/
+}
 
 @keyframes move_ball {
     from {
