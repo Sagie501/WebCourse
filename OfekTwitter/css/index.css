@@ -1,0 +1,22 @@
+.main {
+    margin: auto;
+    width: 75%;
+}
+
+.tweet-textarea {
+    height: 60px;
+    width: 70%;
+}
+
+.user_avatar {
+    float: left;
+    width: 25%;
+}
+
+.user-tweet {
+    display: table-row;
+}
+
+.user-name {
+    font-weight: bold;
+}
