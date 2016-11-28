@@ -1,0 +1,111 @@
+body {
+    background-color: black;
+}
+
+.ball {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    float: left;
+    position: relative;
+    margin-left: 7%;
+    animation-name: move_ball;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.animation-1s {
+    animation-duration: 1s;
+}
+
+.animation-08s {
+    animation-duration: 0.8s;
+}
+
+.animation-12s {
+    animation-duration: 1.2s;
+}
+
+.animation-05s {
+    animation-duration: 0.5s;
+}
+
+.animation-15s {
+    animation-duration: 1.5s;
+}
+
+/*.light-green{
+    background: #BADA55;
+}
+
+.red {
+    background: red;
+}
+
+.yellow {
+    background: yellow;
+}
+
+.orange {
+    background: orange;
+}
+
+.deeppink {
+    background: deeppink;
+}*/
+
+@keyframes move_ball {
+    from {
+        left:100px; top:600px;
+    }
+
+    to {
+        left:100px; top:300px;
+    }
+}
+
+.heart {
+    position: relative;
+    width: 70px;
+    height: 60px;
+    float: left;
+    margin-left: 7%;
+    animation-name: move_ball;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+.heart:before,
+.heart:after {
+    position: absolute;
+    content: "";
+    left: 50px;
+    top: 0;
+    width: 50px;
+    height: 80px;
+    background: red;
+    -moz-border-radius: 50px 50px 0 0;
+    border-radius: 50px 50px 0 0;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    -webkit-transform-origin: 0 100%;
+    -moz-transform-origin: 0 100%;
+    -ms-transform-origin: 0 100%;
+    -o-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+}
+.heart:after {
+    left: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+    -webkit-transform-origin: 100% 100%;
+    -moz-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    -o-transform-origin: 100% 100%;
+    transform-origin :100% 100%;
+}
