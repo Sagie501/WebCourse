@@ -1,0 +1,12 @@
+.user_avatar {
+    float: left;
+    width: 5%;
+}
+
+.user-name {
+    font-weight: bold;
+}
+
+.tweets .row {
+    margin-top: 1.5%;
+}

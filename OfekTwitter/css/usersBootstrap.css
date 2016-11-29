@@ -1,0 +1,41 @@
+.main {
+    margin: auto;
+    width: 75%;
+}
+
+.user {
+    padding: 1%;
+    margin: 1%;
+    border: 3px solid #e6e6e6;
+    border-radius: 4px;
+    text-align: center;
+    width: 15%;
+}
+
+.user:hover {
+    border: 3px solid #cecece;
+}
+
+.users {
+    /*width: 70%;*/
+    /*float: left;*/
+}
+
+aside .followees {
+    /* width: 20%;
+    float: right; */
+    text-align: center;
+    border: 5px solid #e6e6e6;
+    border-radius: 5px;
+}
+
+.followe {
+    margin-bottom: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.move_to_left {
+    float: left;
+}
