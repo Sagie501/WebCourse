@@ -3,27 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Ofek Twitter | Users</title>
-    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/generalBootstrap.css">
     <link rel="stylesheet" href="css/usersBootstrap.css">
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
 </head>
 <body>
 <header>
-    <nav>
-        <img src="images/ofek.png" class="header-btn" alt="Ofek Logo">
-        <a href="indexBootstrap.html" class="header-btn main-option">OfekTwitter</a>
-        <ul class="navbar_options">
-            <li><a href="usersBootstrap.html" class="header-btn option">Users</a></li>
-            <li><a href="#" class="header-btn option">Sign up</a></li>
-            <li><a href="#" class="header-btn option">Sign in</a></li>
-        </ul>
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="indexBootstrap.html" class="navbar-brand header-btn main-option">
+                    <img src="images/ofek.png" class="image-logo" alt="Ofek Logo">
+                    OfekTwitter
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="usersBootstrap.html" class="header-btn">Users</a></li>
+                <li><a href="#" class="header-btn">Sign in</a></li>
+                <li><a href="#" class="header-btn">Sign up</a></li>
+            </ul>
+        </div>
     </nav>
 </header>
-<br/>
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <input type="text" placeholder="Filter by user name" class="form-control">
+            <input type="text" placeholder="filter by user name" class="form-control">
         </div>
         <input type="button" value="ok" class="btn btn-primary">
     </div>
@@ -34,63 +39,90 @@
                     <div class="user_avatar">
                         <img src="images/useravatar.png" alt="User Avatar">
                     </div>
-                    <input type="button" value="follow">
+                    <input type="button" value="follow" class="btn btn-primary">
                     <div class="user_name">
                         <p>Marty McFly</p>
                     </div>
                 </div>
-                <div class="user move_to_left">
+                <div class="user col-md-2">
                     <div class="user_avatar">
                         <img src="images/useravatar.png" alt="User Avatar">
                     </div>
-                    <input type="button" value="follow">
-                    <div class="user_name">
-                        <p>James Bond</p>
-                    </div>
-                </div>
-                <div class="user move_to_left">
-                    <div class="user_avatar">
-                        <img src="images/useravatar.png" alt="User Avatar">
-                    </div>
-                    <input type="button" value="unfollow">
+                    <input type="button" value="follow" class="btn btn-primary">
                     <div class="user_name">
                         <p>Janis Joplin</p>
                     </div>
                 </div>
-                <div class="user move_to_left">
+                <div class="user col-md-2">
                     <div class="user_avatar">
                         <img src="images/useravatar.png" alt="User Avatar">
                     </div>
-                    <input type="button" value="follow">
-                    <div class="user_name">
-                        <p>Mark Twain</p>
-                    </div>
-                </div>
-                <div class="user move_to_left">
-                    <div class="user_avatar">
-                        <img src="images/useravatar.png" alt="User Avatar">
-                    </div>
-                    <input type="button" value="unfollow">
+                    <input type="button" value="follow" class="btn btn-primary">
                     <div class="user_name">
                         <p>Albert Einstein</p>
                     </div>
                 </div>
-                <div class="user move_to_left">
+                <div class="user col-md-2">
                     <div class="user_avatar">
                         <img src="images/useravatar.png" alt="User Avatar">
                     </div>
-                    <input type="button" value="follow">
+                    <input type="button" value="follow" class="btn btn-primary">
                     <div class="user_name">
-                        <p>Frodo</p>
+                        <p>Genghis Khan</p>
                     </div>
                 </div>
-                <div class="user move_to_left">
+                <div class="user col-md-2">
                     <div class="user_avatar">
                         <img src="images/useravatar.png" alt="User Avatar">
                     </div>
-                    <input type="button" value="follow">
+                    <input type="button" value="unfollow" class="btn btn-primary">
                     <div class="user_name">
-                        <p>Bill Gates</p>
+                        <p>Dracula</p>
+                    </div>
+                </div>
+                <div class="user col-md-2">
+                    <div class="user_avatar">
+                        <img src="images/useravatar.png" alt="User Avatar">
+                    </div>
+                    <input type="button" value="follow" class="btn btn-primary">
+                    <div class="user_name">
+                        <p>Forest Gump</p>
+                    </div>
+                </div>
+                <div class="user col-md-2">
+                    <div class="user_avatar">
+                        <img src="images/useravatar.png" alt="User Avatar">
+                    </div>
+                    <input type="button" value="follow" class="btn btn-primary">
+                    <div class="user_name">
+                        <p>Caligula</p>
+                    </div>
+                </div>
+                <div class="user col-md-2">
+                    <div class="user_avatar">
+                        <img src="images/useravatar.png" alt="User Avatar">
+                    </div>
+                    <input type="button" value="follow" class="btn btn-primary">
+                    <div class="user_name">
+                        <p>Winnie the Pooh</p>
+                    </div>
+                </div>
+                <div class="user col-md-2">
+                    <div class="user_avatar">
+                        <img src="images/useravatar.png" alt="User Avatar">
+                    </div>
+                    <input type="button" value="follow" class="btn btn-primary">
+                    <div class="user_name">
+                        <p>Obama</p>
+                    </div>
+                </div>
+                <div class="user col-md-2">
+                    <div class="user_avatar">
+                        <img src="images/useravatar.png" alt="User Avatar">
+                    </div>
+                    <input type="button" value="unfollow" class="btn btn-primary">
+                    <div class="user_name">
+                        <p>Henry the 8th</p>
                     </div>
                 </div>
             </div>
@@ -101,18 +133,18 @@
                         <div class="user_avatar">
                             <img src="images/useravatar.png" alt="User Avatar">
                         </div>
-                        <input type="button" value="unfollow">
+                        <input type="button" value="unfollow" class="btn btn-primary">
                         <div class="user_name">
-                            <p>Albert Einstein</p>
+                            <p>Dracula</p>
                         </div>
                     </div>
                     <div class="user followe">
                         <div class="user_avatar">
                             <img src="images/useravatar.png" alt="User Avatar">
                         </div>
-                        <input type="button" value="unfollow">
+                        <input type="button" value="unfollow" class="btn btn-primary">
                         <div class="user_name">
-                            <p>Janis Joplin</p>
+                            <p>Henry the 8th</p>
                         </div>
                     </div>
                 </div>

@@ -1,41 +1,33 @@
-.main {
-    margin: auto;
-    width: 75%;
-}
-
 .user {
     padding: 1%;
     margin: 1%;
-    border: 3px solid #e6e6e6;
+    border: 1px solid #e0e0e0;
     border-radius: 4px;
     text-align: center;
-    width: 15%;
-}
-
-.user:hover {
-    border: 3px solid #cecece;
-}
-
-.users {
-    /*width: 70%;*/
-    /*float: left;*/
+    height: 170px;
+    width: 14% !important;
 }
 
 aside .followees {
-    /* width: 20%;
-    float: right; */
     text-align: center;
     border: 5px solid #e6e6e6;
     border-radius: 5px;
 }
 
 .followe {
-    margin-bottom: 5px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
+    margin-bottom: 20px;
+    margin-left: 13%;
+    width: 75% !important;
 }
 
-.move_to_left {
-    float: left;
+.user_name {
+    margin-top: 10%;
+}
+
+.user input {
+    margin-top: 8%;
+}
+
+.user_avatar {
+    margin-top: 2%;
 }
