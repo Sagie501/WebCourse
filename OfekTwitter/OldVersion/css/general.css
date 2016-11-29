@@ -1,0 +1,51 @@
+body {
+    font-size: 0.9vw;
+}
+
+nav {
+    background-color: #0a64eb;
+}
+
+nav .header-btn {
+    color: white;
+    padding: 5px;
+    text-decoration: none;
+    /*display: inline-block;*/
+    text-shadow: 1px 1px 1px #000000;
+    vertical-align: middle;
+}
+
+nav .header-btn:hover {
+    background-color: #689ff1;
+}
+
+nav img {
+    width: 2%;
+    height: 2%;
+    display: inline-block;
+}
+
+nav ul {
+    float: right;
+    margin: 0.3%;
+}
+
+nav .navbar_options li {
+    /*list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    float: right;
+    margin-right: 5px*/
+    display: inline;
+}
+
+nav .option {
+    padding: 11px;
+    line-height: 250%;
+}
+
+nav .main-option {
+    padding: 8px;
+    font-size: 140%;
+}
