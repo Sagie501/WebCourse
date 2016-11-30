@@ -10,11 +10,11 @@ window.onload = function () {
 
 var showTweets = function (tweets) {
     for (var index = 0; index < tweets.length; index++) {
-        createTweetHTML(tweets[index].username, tweets[index].text);
+        createTweetHTML(tweets[index].username, tweets[index].text, "green");
     }
 }
 
-var createTweetHTML = function (userName, tweetContent) {
+var createTweetHTML = function (userName, tweetContent, color) {
     var headDiv = document.getElementById("tweets");
     var rowDiv = document.createElement("div");
     rowDiv.classList.add("row");
@@ -25,6 +25,7 @@ var createTweetHTML = function (userName, tweetContent) {
     avatarImg.setAttribute("alt", "User Avatar");
     var userNameDiv = document.createElement("div");
     userNameDiv.classList.add("user-name");
+    userNameDiv.setAttribute("style", "color: " + color);
     var tweetP = document.createElement("p");
 
     userNameDiv.innerHTML = userName;
@@ -46,7 +47,7 @@ document.getElementById("publishBtn").addEventListener("click", function () {
     if (validteTweet(newTweet.text)) {
         tweets.push(newTweet);
         document.getElementById("tweetContent").value = "";
-        createTweetHTML(newTweet.username, newTweet.text);
+        createTweetHTML(newTweet.username, newTweet.text, "black");
     }
 });
 
