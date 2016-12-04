@@ -14,7 +14,7 @@ function assert (value, name) {
 
 function test_group (name, test_group_function) {
     var test_group_div = document.createElement("div");
-    test_group_div.classList.add("testGroup");
+    test_group_div.classList.add("test-group");
     test_group_div.classList.add("passed");
     var test_group_name = document.createTextNode(name);
     test_group_list = document.createElement("ul");

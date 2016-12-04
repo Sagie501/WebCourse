@@ -1,23 +1,23 @@
 .passed {
-    background-color:#bafdba
+    background-color: #bafdba;
 }
 
 .failed {
-    background-color:#d68c8c
+    background-color: #d68c8c;
 }
 
-.testGroup {
+.test-group {
     padding: 4px;
     margin: 3px;
     border: solid black 0.5px;
     font-weight: bold;
 }
 
-.testGroup ul {
+.test-group ul {
     list-style-type: none;
 }
 
-.testGroup li {
+.test-group li {
     padding: 4px;
     margin: 4px;
     border: solid black 0.5px;
