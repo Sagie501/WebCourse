@@ -26,48 +26,6 @@ var buildUser = function (user) {
 
     headDiv.appendChild(colDiv);
     colDiv.appendChild(build(user));
-    // var thumbnail = document.createElement("div");
-    // thumbnail.classList.add("thumbnail");
-    // var avatarImg = document.createElement("img");
-    // avatarImg.setAttribute("src", "images/useravatar.png");
-    // avatarImg.setAttribute("alt", "User Avatar");
-    // var caption = document.createElement("div");
-    // caption.classList.add("caption");
-    // var buttonP = document.createElement("p");
-    // var input = document.createElement("input");
-    // input.setAttribute("type", "button");
-    // input.setAttribute("id", "btn_" + user.username);
-    // if (!user.follow) {
-    //     input.setAttribute("value", "follow");
-    //     input.classList.add("btn");
-    //     input.classList.add("btn-success");
-    // } else {
-    //     input.setAttribute("value", "unfollow");
-    //     input.classList.add("btn");
-    //     input.classList.add("btn-danger");
-    //     buildFollowe(user);
-    // }
-    // input.addEventListener("click", function() {
-    //     if (!user.follow) {
-    //         followClicked(this);
-    //         addToList(user);
-    //     } else {
-    //         unfollowClicked(this);
-    //         removeFromList(user.username);
-    //     }
-    //     user.follow = !user.follow;
-    // });
-    // var usernameP = document.createElement("p");
-    //
-    // usernameP.innerHTML = user.username;
-    //
-    // headDiv.appendChild(colDiv);
-    // colDiv.appendChild(thumbnail);
-    // thumbnail.appendChild(avatarImg);
-    // thumbnail.appendChild(caption);
-    // caption.appendChild(buttonP);
-    // buttonP.appendChild(input);
-    // caption.appendChild(usernameP);
 }
 
 var buildFollowe = function (user) {
@@ -78,35 +36,6 @@ var buildFollowe = function (user) {
 
     headDiv.appendChild(colDiv);
     colDiv.appendChild(build(user));
-    // var thumbnail = document.createElement("div");
-    // thumbnail.classList.add("thumbnail");
-    // var avatarImg = document.createElement("img");
-    // avatarImg.setAttribute("src", "images/useravatar.png");
-    // avatarImg.setAttribute("alt", "User Avatar");
-    // var caption = document.createElement("div");
-    // caption.classList.add("caption");
-    // var buttonP = document.createElement("p");
-    // var input = document.createElement("input");
-    // input.setAttribute("type", "button");
-    // input.setAttribute("value", "unfollow");
-    // input.classList.add("btn");
-    // input.classList.add("btn-danger");
-    // input.addEventListener("click", function() {
-    //     removeFromList(user.username);
-    //     user.follow = !user.follow;
-    //     unfollowClicked(document.getElementById("btn_" + user.username));
-    // });
-    // var usernameP = document.createElement("p");
-    //
-    // usernameP.innerHTML = user.username;
-    //
-    // headDiv.appendChild(colDiv);
-    // colDiv.appendChild(thumbnail);
-    // thumbnail.appendChild(avatarImg);
-    // thumbnail.appendChild(caption);
-    // caption.appendChild(buttonP);
-    // buttonP.appendChild(input);
-    // caption.appendChild(usernameP);
 }
 
 var build = function (user) {
@@ -134,7 +63,7 @@ var build = function (user) {
         if (!user.follow) {
             followClicked(this);
             user.follow = !user.follow;
-            addToList(user);
+            addToFollowesList(user);
         } else {
             unfollowClicked(document.getElementById("btn_" + user.username));
             user.follow = !user.follow;
@@ -166,7 +95,7 @@ var unfollowClicked = function (btn) {
     btn.classList.add("btn-success");
 }
 
-var addToList = function(user) {
+var addToFollowesList = function(user) {
     buildFollowe(user);
 }
 

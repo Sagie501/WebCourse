@@ -6,13 +6,13 @@ var tweets = [
 
 window.onload = function () {
     showTweets(tweets);
-}
+};
 
 var showTweets = function (tweets) {
     for (var index = 0; index < tweets.length; index++) {
         createTweetHTML(tweets[index].username, tweets[index].text, "green");
     }
-}
+};
 
 var createTweetHTML = function (userName, tweetContent, color) {
     var headDiv = document.getElementById("tweets");
@@ -36,24 +36,34 @@ var createTweetHTML = function (userName, tweetContent, color) {
     userAvatarDiv.appendChild(avatarImg);
     rowDiv.appendChild(userNameDiv);
     rowDiv.appendChild(tweetP);
-}
+};
+
+test_group("Stam test group", function () {
+    assert(true, "first test");
+    assert(false, "second test");
+    assert(true, "third test");
+});
+
+test_group("dsf test group", function () {
+    assert(true, "gfd test");
+    assert(false, "gfd test");
+    assert(true, "gfd test");
+});
 
 document.getElementById("publishBtn").addEventListener("click", function () {
     var newTweet = {
         username: 'Sagie',
         text: document.getElementById("tweetContent").value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt')
-    }
+    };
 
-    if (validteTweet(newTweet.text)) {
+    if (validateTweet(newTweet.text)) {
         tweets.push(newTweet);
         document.getElementById("tweetContent").value = "";
         createTweetHTML(newTweet.username, newTweet.text, "black");
     }
 });
 
-var validteTweet = function (tweetContent) {
-    if (tweetContent != null && tweetContent != undefined && tweetContent != "") {
-        return true;
-    }
-    return false;
-}
+var validateTweet = function (tweetContent) {
+    return tweetContent != null && tweetContent != undefined && tweetContent != "";
+
+};
