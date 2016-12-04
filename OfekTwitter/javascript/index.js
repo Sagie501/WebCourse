@@ -6,6 +6,18 @@ var tweets = [
 
 window.addEventListener("load", function () {
     showTweets(tweets);
+
+    test_group("Checking publishing", function () {
+        assert(testNewTweet(), "Check new tweet");
+        assert(testEmptyTweet(), "Check empty tweet");
+    });
+
+    test_group("Selectors", function () {
+        assert(oneImageLogo(), "Counting one image logo class element");
+        assert(threeTweets(), "Counting 3 tweet-row classes under tweets class");
+    });
+
+    document.getElementById("publishBtn").addEventListener("click", createNewTweet);
 });
 
 var showTweets = function (tweets) {
@@ -85,14 +97,8 @@ var oneImageLogo = function () {
     return document.querySelectorAll(".image-logo").length === 1;
 };
 
-test_group("Checking publishing", function () {
-    assert(testNewTweet(), "Check new tweet");
-    assert(testEmptyTweet(), "Check empty tweet");
-});
+var threeTweets = function () {
+    return document.querySelectorAll("#tweets .row").length === 3;
+}
 
-test_group("Selectors", function () {
-    assert(oneImageLogo(), "Counting one image logo class element");
-});
 // ---------------------------------------------------------------------------------------------
-
-document.getElementById("publishBtn").addEventListener("click", createNewTweet);
