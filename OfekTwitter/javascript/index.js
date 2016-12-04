@@ -41,7 +41,7 @@ var createTweetHTML = function (userName, tweetContent, color) {
 document.getElementById("publishBtn").addEventListener("click", function () {
     var newTweet = {
         username: 'Sagie',
-        text: document.getElementById("tweetContent").value
+        text: document.getElementById("tweetContent").value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt')
     }
 
     if (validteTweet(newTweet.text)) {
