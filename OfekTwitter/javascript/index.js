@@ -4,19 +4,9 @@ var tweets = [
     {username: 'Mimi', text: 'I want to go to sleep'}
 ];
 
-window.onload = function () {
+window.addEventListener("load", function () {
     showTweets(tweets);
-
-    test_group("Checking publishing", function () {
-        assert(testNewTweet(), "Check new tweet");
-        assert(testEmptyTweet(), "Check empty tweet");
-    });
-
-    test_group("Selectors", function () {
-        assert(oneImageLogo(), "Counting one image logo class element");
-        assert(threeTweets(), "Counting 3 row tweets class under tweets class");
-    });
-};
+});
 
 var showTweets = function (tweets) {
     for (var index = 0; index < tweets.length; index++) {
@@ -49,12 +39,14 @@ var createTweetHTML = function (userName, tweetContent, color) {
 };
 
 var createNewTweet = function () {
-    var newTweet = {
-        username: 'Sagie',
-        text: document.getElementById("tweetContent").value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt')
-    };
+    var tweetText = document.getElementById("tweetContent").value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
 
-    if (validateTweet(newTweet.text)) {
+    if (validateTweet(tweetText)) {
+        var newTweet = {
+            username: 'Sagie',
+            text: tweetText
+        };
+
         tweets.push(newTweet);
         document.getElementById("tweetContent").value = "";
         createTweetHTML(newTweet.username, newTweet.text, "black");
@@ -67,6 +59,7 @@ var validateTweet = function (tweetContent) {
 };
 
 // -------------TESTING------------------------------------------------------------------
+// Testing here because it makes problem with the listener
 var testNewTweet = function () {
     var input = document.getElementById("tweetContent");
     input.value = "testing";
@@ -92,9 +85,14 @@ var oneImageLogo = function () {
     return document.querySelectorAll(".image-logo").length === 1;
 };
 
-var threeTweets = function () {
-  return document.querySelectorAll("#tweets .row").length === 3;
-};
+test_group("Checking publishing", function () {
+    assert(testNewTweet(), "Check new tweet");
+    assert(testEmptyTweet(), "Check empty tweet");
+});
+
+test_group("Selectors", function () {
+    assert(oneImageLogo(), "Counting one image logo class element");
+});
 // ---------------------------------------------------------------------------------------------
 
 document.getElementById("publishBtn").addEventListener("click", createNewTweet);

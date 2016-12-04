@@ -9,7 +9,7 @@
 .test-group {
     padding: 4px;
     margin: 3px;
-    border: solid black 0.5px;
+    border: solid black 1px;
     font-weight: bold;
 }
 
@@ -20,6 +20,6 @@
 .test-group li {
     padding: 4px;
     margin: 4px;
-    border: solid black 0.5px;
+    border: solid black 1px;
     font-weight: normal;
 }

@@ -4,15 +4,15 @@ var users = [
     {username: 'Mimi', follow: false}
 ];
 
-window.onload = function () {
+window.addEventListener("load", function () {
     showUsers(users);
-}
+});
 
 var showUsers = function (users) {
     for (var index = 0; index < users.length; index++) {
         buildUser(users[index]);
     }
-}
+};
 
 var buildUser = function (user) {
     var headDiv = document.getElementById("usersContainer");
@@ -26,7 +26,7 @@ var buildUser = function (user) {
 
     headDiv.appendChild(colDiv);
     colDiv.appendChild(build(user));
-}
+};
 
 var buildFollowe = function (user) {
     var headDiv = document.getElementById("following");
@@ -36,7 +36,7 @@ var buildFollowe = function (user) {
 
     headDiv.appendChild(colDiv);
     colDiv.appendChild(build(user));
-}
+};
 
 var build = function (user) {
     var thumbnail = document.createElement("div");
@@ -81,27 +81,27 @@ var build = function (user) {
     caption.appendChild(usernameP);
 
     return thumbnail;
-}
+};
 
 var followClicked = function (btn) {
     btn.setAttribute("value", "unfollow");
     btn.classList.remove("btn-success");
     btn.classList.add("btn-danger");
-}
+};
 
 var unfollowClicked = function (btn) {
     btn.setAttribute("value", "follow");
     btn.classList.remove("btn-danger");
     btn.classList.add("btn-success");
-}
+};
 
 var addToFollowesList = function(user) {
     buildFollowe(user);
-}
+};
 
 var removeFromList = function (userName) {
     document.getElementsByClassName(userName)[1].remove();
-}
+};
 
 document.getElementById("filterText").addEventListener("keyup", function () {
    var filterText =  document.getElementById("filterText").value;
