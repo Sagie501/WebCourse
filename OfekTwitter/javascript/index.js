@@ -99,6 +99,6 @@ var oneImageLogo = function () {
 
 var threeTweets = function () {
     return document.querySelectorAll("#tweets .row").length === 3;
-}
+};
 
 // ---------------------------------------------------------------------------------------------

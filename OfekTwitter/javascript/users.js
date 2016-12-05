@@ -60,15 +60,7 @@ var build = function (user) {
         input.classList.add("btn-danger");
     }
     input.addEventListener("click", function() {
-        if (!user.follow) {
-            followClicked(this);
-            user.follow = !user.follow;
-            addToFollowesList(user);
-        } else {
-            unfollowClicked(document.getElementById("btn_" + user.username));
-            user.follow = !user.follow;
-            removeFromList(user.username);
-        }
+        btnClicked(this, user);
     });
     var usernameP = document.createElement("p");
 
@@ -81,6 +73,18 @@ var build = function (user) {
     caption.appendChild(usernameP);
 
     return thumbnail;
+};
+
+var btnClicked = function (btn, user) {
+    if (!user.follow) {
+        followClicked(btn);
+        user.follow = !user.follow;
+        addToFollowesList(user);
+    } else {
+        unfollowClicked(document.getElementById("btn_" + user.username));
+        user.follow = !user.follow;
+        removeFromList(user.username);
+    }
 };
 
 var followClicked = function (btn) {
@@ -113,3 +117,16 @@ document.getElementById("filterText").addEventListener("keyup", function () {
        }
    }
 });
+
+/*var testFollowClicked = function () {
+    var input = document.getElementById("btn_" + users[0].username);
+    var originFollow = users[0].follow;
+    btnClicked(input, users[0]);
+    var isWork = originFollow != users[0].follow;
+    btnClicked(input, users[0]);
+    return isWork;
+};
+
+test_group("Checking following", function () {
+    assert(testFollowClicked, "Check follow or unfollow user");
+});*/
