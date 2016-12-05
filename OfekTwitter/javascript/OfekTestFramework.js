@@ -21,5 +21,6 @@ function test_group (name, test_group_function) {
     test_group_div.appendChild(test_group_name);
     test_group_div.appendChild(test_group_list);
     test_group_function();
-    document.body.innerHTML += test_group_div.outerHTML;
+    // document.body.innerHTML += test_group_div.outerHTML;
+    document.body.appendChild(test_group_div);
 }
