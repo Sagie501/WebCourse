@@ -15,7 +15,7 @@ var showUsers = function (users) {
 };
 
 var buildUser = function (user) {
-    var headDiv = document.getElementById("usersContainer");
+    var headDiv = $("#usersContainer");
     var colDiv = document.createElement("div");
     colDiv.classList.add("col-md-2");
     colDiv.classList.add(user.username);
@@ -24,17 +24,17 @@ var buildUser = function (user) {
         buildFollowe(user);
     }
 
-    headDiv.appendChild(colDiv);
+    headDiv.result[0].appendChild(colDiv);
     colDiv.appendChild(build(user));
 };
 
 var buildFollowe = function (user) {
-    var headDiv = document.getElementById("following");
+    var headDiv = $("#following");
     var colDiv = document.createElement("div");
     colDiv.classList.add("col-md-12");
     colDiv.classList.add(user.username);
 
-    headDiv.appendChild(colDiv);
+    headDiv.result[0].appendChild(colDiv);
     colDiv.appendChild(build(user));
 };
 
@@ -104,16 +104,16 @@ var addToFollowesList = function(user) {
 };
 
 var removeFromList = function (userName) {
-    document.getElementsByClassName(userName)[1].remove();
+    $("." + userName).result[1].remove();
 };
 
-document.getElementById("filterText").addEventListener("keyup", function () {
-   var filterText =  document.getElementById("filterText").value;
+$("#filterText").result[0].addEventListener("keyup", function () {
+   var filterText =  $("#filterText").result[0].value;
    for (var index = 0; index < users.length; index++) {
        if (!users[index].username.includes(filterText)) {
-           document.getElementsByClassName(users[index].username)[0].classList.add("hidden");
+           $("." + users[index].username).addClass("hidden");
        } else {
-           document.getElementsByClassName(users[index].username)[0].classList.remove("hidden");
+           $("." + users[index].username).removeClass("hidden");
        }
    }
 });

@@ -17,7 +17,27 @@ window.addEventListener("load", function () {
         assert(threeTweets(), "Counting 3 tweet-row classes under tweets class");
     });
 
-    document.getElementById("publishBtn").addEventListener("click", createNewTweet);
+    test_group("CSS functions", function () {
+        var tweetUsername = $(".user-name");
+        tweetUsername.css("color: green");
+        assert($(".user-name").result[0].style.cssText === "color: green;", "css() sets welcome-header to green");
+        tweetUsername.addClass("papa");
+        assert($(".user-name").result[0].classList.contains("papa"), "addClass() adds papa class");
+        tweetUsername.removeClass("papa");
+        assert($(".user-name").result[0].classList.contains("papa") === false, "removeClass() adds papa class")
+    });
+
+    test_group("Functional functions tests", function () {
+        var navbar = $(".navbar-nav li");
+        assert(navbar.all(function (element) {
+            return element.childElementCount === 1
+        }), "all function counts 1 child for all nav-btn class elements");
+        assert(navbar.any(function (element) {
+                return element.childElementCount === 0
+            }) === false, "any function doesn't find a nav-btn class element with no children");
+    });
+
+    $("#publishBtn").result[0].addEventListener("click", createNewTweet);
 });
 
 var showTweets = function (tweets) {
@@ -27,7 +47,7 @@ var showTweets = function (tweets) {
 };
 
 var createTweetHTML = function (userName, tweetContent, color) {
-    var headDiv = document.getElementById("tweets");
+    var headDiv = $("#tweets");
     var rowDiv = document.createElement("div");
     rowDiv.classList.add("row");
     var userAvatarDiv = document.createElement("div");
@@ -43,7 +63,7 @@ var createTweetHTML = function (userName, tweetContent, color) {
     userNameDiv.innerHTML = userName;
     tweetP.innerHTML = tweetContent;
 
-    headDiv.appendChild(rowDiv);
+    headDiv.result[0].appendChild(rowDiv);
     rowDiv.appendChild(userAvatarDiv);
     userAvatarDiv.appendChild(avatarImg);
     rowDiv.appendChild(userNameDiv);
@@ -51,7 +71,7 @@ var createTweetHTML = function (userName, tweetContent, color) {
 };
 
 var createNewTweet = function () {
-    var tweetText = document.getElementById("tweetContent").value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
+    var tweetText = $("#tweetContent").result[0].value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
 
     if (validateTweet(tweetText)) {
         var newTweet = {
@@ -60,7 +80,7 @@ var createNewTweet = function () {
         };
 
         tweets.push(newTweet);
-        document.getElementById("tweetContent").value = "";
+        $("#tweetContent").result[0].value = "";
         createTweetHTML(newTweet.username, newTweet.text, "black");
     }
 };
@@ -73,19 +93,19 @@ var validateTweet = function (tweetContent) {
 // -------------TESTING------------------------------------------------------------------
 // Testing here because it makes problem with the listener
 var testNewTweet = function () {
-    var input = document.getElementById("tweetContent");
-    input.value = "testing";
+    var input = $("#tweetContent");
+    input.result[0].value = "testing";
     createNewTweet();
     var originTweets = tweets.filter(function (item) {return item.text != "testing"});
     var isWork = originTweets.length != tweets.length;
     tweets = originTweets;
-    document.getElementById("tweets").lastElementChild.remove();
+    $("#tweets").result[0].lastElementChild.remove();
     return isWork;
 };
 
 var testEmptyTweet = function () {
-    var input = document.getElementById("tweetContent");
-    input.value = "";
+    var input = $("#tweetContent");
+    input.result[0].value = "";
     createNewTweet();
     var newTweets = tweets.filter(function (item) {return item.text != ""});
     var isWork = newTweets.length === tweets.length;
@@ -94,11 +114,11 @@ var testEmptyTweet = function () {
 };
 
 var oneImageLogo = function () {
-    return document.querySelectorAll(".image-logo").length === 1;
+    return $(".image-logo").count() === 1;
 };
 
 var threeTweets = function () {
-    return document.querySelectorAll("#tweets .row").length === 3;
+    return $("#tweets .row").count() === 3;
 };
 
 // ---------------------------------------------------------------------------------------------
