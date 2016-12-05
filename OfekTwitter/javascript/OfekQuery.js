@@ -1,8 +1,8 @@
 function $(query) {
-    return new ofekQuery(query);
-};
+    return new OfekQuery(query);
+}
 
-var ofekQuery = function (query) {
+var OfekQuery = function (query) {
     this.result = [];
 
     var types = {
@@ -30,11 +30,7 @@ var ofekQuery = function (query) {
                 queryResult.push(currPossibleResult);
             }
         });
-        if (queryResult[0] === null) {
-            this.result = null;
-        } else {
-            this.result = queryResult;
-        }
+        this.result = queryResult.slice(0);
     }
 };
 
@@ -122,4 +118,101 @@ var validQuery = function (query) {
 
 var splitQuery = function(query) {
     return query.split(" ");
+};
+
+OfekQuery.prototype.addClass = function (class_name) {
+    this.result.forEach(function (result) {
+        result.classList.add(class_name);
+    });
+};
+
+OfekQuery.prototype.removeClass = function (class_name) {
+    this.result.forEach(function (result) {
+        result.classList.remove(class_name);
+    });
+};
+
+OfekQuery.prototype.each = function (fn) {
+    this.result.forEach(function (result) {
+        fn(result);
+    });
+};
+
+OfekQuery.prototype.map = function (fn) {
+    var newArray = [];
+    this.result.forEach(function (result) {
+        newArray.push(fn(result));
+    });
+    return newArray;
+};
+
+var runTestOnObject = function (object, tests) {
+  for (test of tests) {
+      if (!test(object)) {
+          return false;
+      }
+  }
+  return true;
+};
+
+OfekQuery.prototype.any = function () {
+    for (result of this.result) {
+        if (runTestOnObject(result, arguments)) {
+            return true;
+        }
+    }
+    return false;
+};
+
+OfekQuery.prototype.all = function () {
+    for (result of this.result) {
+        if (!runTestOnObject(result, arguments)) {
+            return false;
+        }
+    }
+    return true;
+};
+
+OfekQuery.prototype.filter = function () {
+    var newOfekQuery = new OfekQuery();
+    for (result of this.result) {
+        if (runTestOnObject(result, arguments)) {
+            newOfekQuery.result.push(result);
+        }
+    }
+    return newOfekQuery;
+};
+
+OfekQuery.prototype.css = function (property, value) {
+    this.result.forEach(function (result) {
+        result.style[property] = value;
+    });
+};
+
+OfekQuery.prototype.count = function () {
+    return this.result.length;
+};
+
+OfekQuery.prototype.appendChild = function (childElement) {
+    this.result.forEach(function (result) {
+        result.appendChild(childElement);
+    });
+};
+
+OfekQuery.prototype.getAttribute = function (attributeName) {
+    var attributes = [];
+    this.result.forEach(function (result) {
+        attributes.push(result.getAttribute(attributeName));
+    });
+    return attributes;
+};
+
+OfekQuery.prototype.setAttribute = function (attributeName, attributeValue) {
+    this.result.forEach(function (result) {
+        result.setAttribute(attributeName, attributeValue);
+    });
+};
+
+OfekQuery.prototype.get = function (index) {
+    return this.result[index];
 };
