@@ -18,7 +18,7 @@ var OfekQuery = function (query) {
     };
 
     if (validQuery(query)) {
-        var queryList = splitQuery(query);
+        var queryList = query.split(" ");
         var lastQuery = queryList[queryList.length - 1];
 
         var possibleResults = types[getQueryType(lastQuery)](lastQuery);
@@ -40,7 +40,7 @@ var hasAncestors = function(child, ancestorList) {
         return true;
     }
 
-    var lastAncestor = newAncestorList[newAncestorList.length - 1];
+    var prevAncestor = newAncestorList[newAncestorList.length - 1];
 
     var types = {
         '#': function (id, child) {
@@ -54,7 +54,7 @@ var hasAncestors = function(child, ancestorList) {
         }
     };
 
-    if (types[getQueryType(lastAncestor)](lastAncestor, child)) {
+    if (types[getQueryType(prevAncestor)](prevAncestor, child)) {
         newAncestorList.pop();
         return hasAncestors(child, newAncestorList);
     } else {
@@ -116,9 +116,45 @@ var validQuery = function (query) {
     return !(query === null || typeof query !== "string" || query === "" || query === undefined);
 };
 
-var splitQuery = function(query) {
-    return query.split(" ");
-};
+/*var OfekQuery = function (result) {
+    this.result = result;
+}
+
+function $(query) {
+    if (validQuery()) {
+        return;
+    }
+
+    var elements = [document];
+    var selectors = query.split(" ");
+    for (currSelctor of selectors) {
+        var token = currSelctor.charAt(0);
+        var name = currSelctor.substring(1);
+
+        if (token === "#") {
+            elements = [document.getElementById(name)];
+        } else {
+            var newResult = [];
+            for (currElement of elements) {
+                var newElements;
+                if (token === ".") {
+                    newElements = currElement.getElementsByClassName(name);
+                } else {
+                    newElements = currElement.getElementsByTagName(currSelctor);
+                }
+                addCollection(newResult, newElements);
+            }
+            elements = newResult;
+        }
+    }
+    return new OfekQuery(elements);
+}
+
+var addCollection = function (collection, colToAdd) {
+  for (element of colToAdd) {
+      collection.push(element);
+  }
+};*/
 
 OfekQuery.prototype.addClass = function (class_name) {
     this.result.forEach(function (result) {

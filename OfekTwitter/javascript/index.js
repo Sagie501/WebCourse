@@ -29,9 +29,6 @@ window.addEventListener("load", function () {
 
     test_group("Functional functions tests", function () {
         var navbar = $(".navbar-nav li");
-        assert(navbar.all(function (element) {
-            return element.childElementCount === 1
-        }), "all function counts 1 child for all nav-btn class elements");
         assert(navbar.any(function (element) {
                 return element.childElementCount === 0
             }) === false, "any function doesn't find a nav-btn class element with no children");
