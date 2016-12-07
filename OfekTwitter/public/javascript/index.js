@@ -1,5 +1,7 @@
 var tweets = [];
 
+var myId = "5e07631e-3974-47f8-a89c-bb41ce1e0e3d";
+
 window.addEventListener("load", function () {
     showTweets(tweets);
 
@@ -81,18 +83,20 @@ var createNewTweet = function () {
     var tweetText = $("#tweetContent").result[0].value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
 
     if (validateTweet(tweetText)) {
-        var newTweet = {
-            username: 'Sagie',
-            text: tweetText
-        };
-
-        tweets.push(newTweet);
-        $("#tweetContent").result[0].value = "";
-        createTweetHTML(newTweet.username, newTweet.text, "black");
-        axios.put("http://10.103.50.249:8000/tweets", newTweet)
+        axios.get("http://10.103.50.249:8000/users/" + myId)
             .then(function (response) {
-                console.log(response.data);
-            });
+                var username = response.data[0].username;
+                var newTweet = {
+                    username: myId,
+                    text: tweetText
+                };
+                axios.put("http://10.103.50.249:8000/tweets", newTweet)
+                    .then(function (response) {
+                        tweets.push(newTweet);
+                        $("#tweetContent").result[0].value = "";
+                        createTweetHTML(username, newTweet.text, "black");
+                    });
+            })
     }
 };
 

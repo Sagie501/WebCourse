@@ -1,13 +1,16 @@
 var express = require('express');
+var bodyParser = require("body-parser");
 var app = express();
 var fs = require("fs");
 
 app.use(express.static('public'));
+app.use(bodyParser.json());
 
 const PORT = 8000;
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
@@ -55,7 +58,7 @@ app.route('/tweets').put(function (req, res) {
         res.writeHead(200, {'Content-Type': 'text/json'});
         let tweets = JSON.parse(content.toString());
         tweets.push({text: req.body.text, user: req.body.username});
-        fs.writeFile('.public/json/tweets.json', JSON.stringify(tweets));
+        fs.writeFile('public/json/tweets.json', JSON.stringify(tweets));
         res.end(JSON.stringify(tweets), 'utf-8');
     });
 });
