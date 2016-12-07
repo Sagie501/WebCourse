@@ -1,8 +1,4 @@
-var tweets = [
-    {username: 'Bobo', text: 'hello followers!'},
-    {username: 'Elvis', text: 'this exercise is really easy!'},
-    {username: 'Mimi', text: 'I want to go to sleep'}
-];
+var tweets = [];
 
 window.addEventListener("load", function () {
     showTweets(tweets);
@@ -38,20 +34,19 @@ window.addEventListener("load", function () {
 });
 
 var showTweets = function (tweets) {
-    var tweets1 = [];
     var usernamePromises = [];
     axios.get('http://10.103.50.193:8080/tweets')
         .then(function (response) {
-            tweets1 = response.data;
+            tweets = response.data;
         }).then(function () {
-            tweets1.forEach(function (tweet) {
+            tweets.forEach(function (tweet) {
                usernamePromises.push(axios.get('http://10.103.50.193:8080/users/' + tweet.user).then(function (response) {
                    tweet.username = response.data[0].username;
                }))
             });
         }).then(function () {
             axios.all(usernamePromises).then(function () {
-                tweets1.forEach(function (tweet) {
+                tweets.forEach(function (tweet) {
                     createTweetHTML(tweet.username, tweet.text, "green");
                 })
             });
@@ -72,7 +67,7 @@ var createTweetHTML = function (userName, tweetContent, color) {
     userNameDiv.setAttribute("style", "color: " + color);
     var tweetP = document.createElement("p");
 
-    userNameDiv.innerHTML = userName;
+    userNameDiv.innerHTML = userName + " says:";
     tweetP.innerHTML = tweetContent;
 
     headDiv.result[0].appendChild(rowDiv);
@@ -94,6 +89,10 @@ var createNewTweet = function () {
         tweets.push(newTweet);
         $("#tweetContent").result[0].value = "";
         createTweetHTML(newTweet.username, newTweet.text, "black");
+        axios.put("http://10.103.50.193:8080/tweets", newTweet)
+            .then(function (response) {
+                console.log(response.data);
+            });
     }
 };
 

@@ -1,17 +1,47 @@
-var myId = "10c06b27-d8ee-4435-9cee-0a2a838ca14a";
+var myId = "5e07631e-3974-47f8-a89c-bb41ce1e0e3d";
+
+var users = [];
 
 window.addEventListener("load", function () {
     showUsers();
 });
 
 var showUsers = function () {
-    axios.get('http://10.103.50.193:8080/users')
+    var userFollowing = [];
+    axios.get("http://10.103.50.193:8080/users/" + myId)
         .then(function (response) {
-            for (var index = 0; index < response.data.length; index++) {
-                if (response.data[index]._id !== "10c06b27-d8ee-4435-9cee-0a2a838ca14a") {
-                    buildUser(response.data[index]);
-                }
-            }
+            userFollowing = response.data[0].following;
+        })
+        .then(function () {
+            axios.get('http://10.103.50.193:8080/users')
+                .then(function (response) {
+                    users = response.data;
+                    for (var index = 0; index < users.length; index++) {
+                        if (users[index]._id !== myId) {
+                            if (userFollowing.indexOf(users[index]._id) > -1) {
+                                users[index].follow = true;
+                            } else {
+                                users[index].follow = false;
+                            }
+                            buildUser(users[index]);
+                        } else {
+                            var usersFollowingPromise = [];
+                            var usersFollowing = [];
+                            for (var index2 = 0; index2 < users[index].following.length; index2++) {
+                                usersFollowingPromise.push(axios.get("http://10.103.50.193:8080/users/" + users[index].following[index2])
+                                    .then(function (response) {
+                                        usersFollowing.push(response.data[0]);
+                                    }));
+                            }
+                            axios.all(usersFollowingPromise).then(function () {
+                                for (specUser of usersFollowing) {
+                                    specUser.follow = true;
+                                    buildFollowe(specUser);
+                                }
+                            });
+                        }
+                    }
+                });
         });
 };
 
@@ -20,14 +50,6 @@ var buildUser = function (user) {
     var colDiv = document.createElement("div");
     colDiv.classList.add("col-md-2");
     colDiv.classList.add(user.username);
-
-    var usersFollowing = [];
-    for (var index = 0; index < user.following.length; index++) {
-        usersFollowing.push(axios.get("http://10.103.50.193:8080/users/" + user[index]))
-            .then(function (response) {
-                buildFollowe(response.data[0]);
-            });
-    }
 
     headDiv.result[0].appendChild(colDiv);
     colDiv.appendChild(build(user));
@@ -116,9 +138,9 @@ $("#filterText").result[0].addEventListener("keyup", function () {
    var filterText =  $("#filterText").result[0].value;
    for (var index = 0; index < users.length; index++) {
        if (!users[index].username.includes(filterText)) {
-           $("." + users[index].username).addClass("hidden");
+           $("." + users[index].username).result[0].addClass("hidden");
        } else {
-           $("." + users[index].username).removeClass("hidden");
+           $("." + users[index].username).result[0].removeClass("hidden");
        }
    }
 });
