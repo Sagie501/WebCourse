@@ -1,17 +1,18 @@
-var users = [
-    {username: 'Bobo', follow: false},
-    {username: 'Elvis', follow: true},
-    {username: 'Mimi', follow: false}
-];
+var myId = "10c06b27-d8ee-4435-9cee-0a2a838ca14a";
 
 window.addEventListener("load", function () {
-    showUsers(users);
+    showUsers();
 });
 
-var showUsers = function (users) {
-    for (var index = 0; index < users.length; index++) {
-        buildUser(users[index]);
-    }
+var showUsers = function () {
+    axios.get('http://10.103.50.193:8080/users')
+        .then(function (response) {
+            for (var index = 0; index < response.data.length; index++) {
+                if (response.data[index]._id !== "10c06b27-d8ee-4435-9cee-0a2a838ca14a") {
+                    buildUser(response.data[index]);
+                }
+            }
+        });
 };
 
 var buildUser = function (user) {
@@ -20,8 +21,12 @@ var buildUser = function (user) {
     colDiv.classList.add("col-md-2");
     colDiv.classList.add(user.username);
 
-    if (user.follow) {
-        buildFollowe(user);
+    var usersFollowing = [];
+    for (var index = 0; index < user.following.length; index++) {
+        usersFollowing.push(axios.get("http://10.103.50.193:8080/users/" + user[index]))
+            .then(function (response) {
+                buildFollowe(response.data[0]);
+            });
     }
 
     headDiv.result[0].appendChild(colDiv);
