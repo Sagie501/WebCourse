@@ -8,12 +8,12 @@ window.addEventListener("load", function () {
 
 var showUsers = function () {
     var userFollowing = [];
-    axios.get("http://10.103.50.249:8000/users/" + myId)
+    axios.get("http://localhost:8000/users/" + myId)
         .then(function (response) {
             userFollowing = response.data[0].following;
         })
         .then(function () {
-            axios.get('http://10.103.50.249:8000/users')
+            axios.get('http://localhost:8000/users')
                 .then(function (response) {
                     users = response.data;
                     for (var index = 0; index < users.length; index++) {
@@ -28,7 +28,7 @@ var showUsers = function () {
                             var usersFollowingPromise = [];
                             var usersFollowing = [];
                             for (var index2 = 0; index2 < users[index].following.length; index2++) {
-                                usersFollowingPromise.push(axios.get("http://10.103.50.249:8000/users/" + users[index].following[index2])
+                                usersFollowingPromise.push(axios.get("http://localhost:8000/users/" + users[index].following[index2])
                                     .then(function (response) {
                                         usersFollowing.push(response.data[0]);
                                     }));
@@ -103,15 +103,18 @@ var build = function (user) {
 };
 
 var btnClicked = function (btn, user) {
-    if (!user.follow) {
-        followClicked(btn);
-        user.follow = !user.follow;
-        addToFollowesList(user);
-    } else {
-        unfollowClicked(document.getElementById("btn_" + user.username));
-        user.follow = !user.follow;
-        removeFromList(user.username);
-    }
+    axios.put("http://localhost:8000/users/following", {userId: myId, userIdToAddOrRemove: user._id})
+        .then(function () {
+            if (!user.follow) {
+                followClicked(btn);
+                user.follow = !user.follow;
+                addToFollowesList(user);
+            } else {
+                unfollowClicked(document.getElementById("btn_" + user.username));
+                user.follow = !user.follow;
+                removeFromList(user.username);
+            }
+        });
 };
 
 var followClicked = function (btn) {

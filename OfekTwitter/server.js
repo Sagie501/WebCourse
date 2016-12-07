@@ -63,6 +63,18 @@ app.route('/tweets').put(function (req, res) {
     });
 });
 
+app.route('/users/following').put(function (req, res) {
+    fs.readFile('./public/json/users.json', function (err, content) {
+        res.writeHead(200, {'Content-Type': 'text/json'});
+        let users = JSON.parse(content.toString());
+        let userId = req.body.userId;
+        let userIdToAddOrRemove = req.body.userIdToAddOrRemove;
+        let newUsers = addOrRemoveFollower(users, userId, userIdToAddOrRemove);
+        fs.writeFile('public/json/users.json', JSON.stringify(newUsers));
+        res.end(JSON.stringify(newUsers), 'utf-8');
+    });
+});
+
 app.listen(PORT, function () {
     console.log("Server listening on: http://localhost:%s", PORT);
 });
@@ -95,4 +107,20 @@ function getUsersFollowId(users, id) {
         }
     }
     return usersFollowId;
+}
+
+function addOrRemoveFollower(users, userId, userIdToAddOrRemove) {
+    let newUsers = users.slice(0);
+    for (user of newUsers) {
+        if (user._id === userId) {
+            if (user.following.includes(userIdToAddOrRemove)) {
+                let index = user.following.indexOf(userIdToAddOrRemove);
+                user.following.splice(index, 1);
+            } else {
+                user.following.push(userIdToAddOrRemove);
+            }
+            break;
+        }
+    }
+    return newUsers;
 }

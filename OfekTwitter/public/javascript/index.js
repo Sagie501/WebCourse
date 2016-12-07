@@ -37,12 +37,12 @@ window.addEventListener("load", function () {
 
 var showTweets = function (tweets) {
     var usernamePromises = [];
-    axios.get('http://10.103.50.249:8000/tweets')
+    axios.get('http://localhost:8000/tweets')
         .then(function (response) {
             tweets = response.data;
         }).then(function () {
             tweets.forEach(function (tweet) {
-               usernamePromises.push(axios.get('http://10.103.50.249:8000/users/' + tweet.user).then(function (response) {
+               usernamePromises.push(axios.get('http://localhost:8000/users/' + tweet.user).then(function (response) {
                    tweet.username = response.data[0].username;
                }))
             });
@@ -83,14 +83,14 @@ var createNewTweet = function () {
     var tweetText = $("#tweetContent").result[0].value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
 
     if (validateTweet(tweetText)) {
-        axios.get("http://10.103.50.249:8000/users/" + myId)
+        axios.get("http://localhost:8000/users/" + myId)
             .then(function (response) {
                 var username = response.data[0].username;
                 var newTweet = {
                     username: myId,
                     text: tweetText
                 };
-                axios.put("http://10.103.50.249:8000/tweets", newTweet)
+                axios.put("http://localhost:8000/tweets", newTweet)
                     .then(function (response) {
                         tweets.push(newTweet);
                         $("#tweetContent").result[0].value = "";
