@@ -1,3 +1,5 @@
+
+
 var tweets = [
     {username: 'Bobo', text: 'hello followers!'},
     {username: 'Elvis', text: 'this exercise is really easy!'},
