@@ -99,7 +99,6 @@ var createNewTweet = function () {
 
 var validateTweet = function (tweetContent) {
     return tweetContent != null && tweetContent != undefined && tweetContent != "";
-
 };
 
 // -------------TESTING------------------------------------------------------------------
