@@ -1,5 +1,3 @@
-
-
 var tweets = [
     {username: 'Bobo', text: 'hello followers!'},
     {username: 'Elvis', text: 'this exercise is really easy!'},
@@ -9,7 +7,7 @@ var tweets = [
 window.addEventListener("load", function () {
     showTweets(tweets);
 
-    test_group("Checking publishing", function () {
+    /*test_group("Checking publishing", function () {
         assert(testNewTweet(), "Check new tweet");
         assert(testEmptyTweet(), "Check empty tweet");
     });
@@ -34,15 +32,30 @@ window.addEventListener("load", function () {
         assert(navbar.any(function (element) {
                 return element.childElementCount === 0
             }) === false, "any function doesn't find a nav-btn class element with no children");
-    });
+    });*/
 
     $("#publishBtn").result[0].addEventListener("click", createNewTweet);
 });
 
 var showTweets = function (tweets) {
-    for (var index = 0; index < tweets.length; index++) {
-        createTweetHTML(tweets[index].username, tweets[index].text, "green");
-    }
+    var tweets1 = [];
+    var usernamePromises = [];
+    axios.get('http://10.103.50.193:8080/tweets')
+        .then(function (response) {
+            tweets1 = response.data;
+        }).then(function () {
+            tweets1.forEach(function (tweet) {
+               usernamePromises.push(axios.get('http://10.103.50.193:8080/users/' + tweet.user).then(function (response) {
+                   tweet.username = response.data[0].username;
+               }))
+            });
+        }).then(function () {
+            axios.all(usernamePromises).then(function () {
+                tweets1.forEach(function (tweet) {
+                    createTweetHTML(tweet.username, tweet.text, "green");
+                })
+            });
+        });
 };
 
 var createTweetHTML = function (userName, tweetContent, color) {
