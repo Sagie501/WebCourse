@@ -35,12 +35,12 @@ window.addEventListener("load", function () {
 
 var showTweets = function (tweets) {
     var usernamePromises = [];
-    axios.get('http://10.103.50.193:8080/tweets')
+    axios.get('http://10.103.50.249:8000/tweets')
         .then(function (response) {
             tweets = response.data;
         }).then(function () {
             tweets.forEach(function (tweet) {
-               usernamePromises.push(axios.get('http://10.103.50.193:8080/users/' + tweet.user).then(function (response) {
+               usernamePromises.push(axios.get('http://10.103.50.249:8000/users/' + tweet.user).then(function (response) {
                    tweet.username = response.data[0].username;
                }))
             });
@@ -89,7 +89,7 @@ var createNewTweet = function () {
         tweets.push(newTweet);
         $("#tweetContent").result[0].value = "";
         createTweetHTML(newTweet.username, newTweet.text, "black");
-        axios.put("http://10.103.50.193:8080/tweets", newTweet)
+        axios.put("http://10.103.50.249:8000/tweets", newTweet)
             .then(function (response) {
                 console.log(response.data);
             });
