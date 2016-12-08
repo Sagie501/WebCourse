@@ -1,0 +1,33 @@
+.container {
+    text-align: center;
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+.heading {
+    font-weight: 600;
+    font-size: 26px;
+    color: #424242;
+}
+
+.sub-heading {
+    font-size: 18px;
+    color: #939291;
+    margin-bottom: 10px;
+}
+
+.panel {
+    margin: auto;
+    margin-right: 25%;
+    margin-left: 25%;
+}
+
+.panel input {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.login {
+    font-size: 12px;
+    color: #727272;
+    width: 100%;
+}
