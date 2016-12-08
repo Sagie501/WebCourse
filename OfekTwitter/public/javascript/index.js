@@ -38,7 +38,28 @@ window.addEventListener("load", function () {
 let showTweets = function (tweets) {
     let usernamePromises = [];
     let userFollowing = [];
-    axios.get("http://localhost:8000/users/" + myId)
+    getUsersByIdPromise(myId).then(function (response) {
+        userFollowing = response.data[0].following;
+    }).then(function () {
+        getAllTweetsPromise().then(function (response) {
+            tweets = response.data;
+        }).then(function () {
+            tweets.forEach(function (tweet) {
+                usernamePromises.push(getUsersByIdPromise(tweet.user).then(function (response) {
+                    tweet.username = response.data[0].username;
+                }));
+            });
+        }).then(function () {
+            axios.all(usernamePromises).then(function () {
+                tweets.forEach(function (tweet) {
+                    if (userFollowing.includes(tweet.user) || tweet.user == myId) {
+                        createTweetHTML(tweet.username, tweet.text, "green");
+                    }
+                })
+            });
+        })
+    });
+    /*axios.get("http://localhost:8000/users/" + myId)
         .then(function (response) {
             userFollowing = response.data[0].following;
         }).then(function () {
@@ -60,7 +81,7 @@ let showTweets = function (tweets) {
                 })
             });
         });
-    });
+    });*/
 };
 
 let createTweetHTML = function (userName, tweetContent, color) {
@@ -91,7 +112,19 @@ let createNewTweet = function () {
     let tweetText = $("#tweetContent").result[0].value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
 
     if (validateTweet(tweetText)) {
-        axios.get("http://localhost:8000/users/" + myId)
+        getUsersByIdPromise(myId).then(function (response) {
+            let username = response.data[0].username;
+            let newTweet = {
+                username: myId,
+                text: tweetText
+            };
+            putNewTweetPromise(newTweet).then(function () {
+                tweets.push(newTweet);
+                $("#tweetContent").result[0].value = "";
+                createTweetHTML(username, newTweet.text, "black");
+            });
+        });
+        /*axios.get("http://localhost:8000/users/" + myId)
             .then(function (response) {
                 let username = response.data[0].username;
                 let newTweet = {
@@ -104,7 +137,7 @@ let createNewTweet = function () {
                         $("#tweetContent").result[0].value = "";
                         createTweetHTML(username, newTweet.text, "black");
                     });
-            });
+            });*/
     }
 };
 

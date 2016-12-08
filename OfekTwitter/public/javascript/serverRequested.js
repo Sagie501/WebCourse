@@ -1,6 +1,6 @@
 const PORT = 8000;
 const ip = "http://10.103.50.249";
-const address = ip + PORT;
+const address = ip + ":" + PORT;
 
 var getAllUsersPromise = function () {
     return axios.get(address + "/users");
@@ -22,10 +22,10 @@ var getTweetsBtIdPromise = function (id) {
     return axios.get(address + "/tweets/ " + id);
 };
 
-var putNewTweetsPromise = function () {
-    return axios.put(address + "/tweets");
+var putNewTweetPromise = function (newTweet) {
+    return axios.put(address + "/tweets", newTweet);
 };
 
-var addOrRemoveFollowerPromise = function () {
-    return axios.put(address + "/users/following");
+var addOrRemoveFollowerPromise = function (addRemoveObject) {
+    return axios.put(address + "/users/following", addRemoveObject);
 };
