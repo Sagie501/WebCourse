@@ -17,8 +17,6 @@ app.use(session({
 
 const PORT = 8000;
 
-// Hey!
-
 let jsonRoute = "./json";
 
 app.use(function(req, res, next) {
