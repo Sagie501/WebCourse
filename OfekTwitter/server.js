@@ -91,6 +91,22 @@ app.route('/users').post(function (req, res) {
     });
 });
 
+app.route('/login').put(function (req, res) {
+    fs.readFile('./public/json/users.json', function (err, content) {
+        res.writeHead(200, {'Content-Type': 'text/json'});
+        let users = JSON.parse(content.toString());
+        let username = req.body.username;
+        let password = req.body.password;
+
+        for (user of users) {
+            if (user.username === username && user.password === password) {
+                res.end(JSON.stringify({result: true, userId: user._id}), 'utf-8');
+            }
+        }
+        res.end(JSON.stringify({result: false}), 'utf-8');
+    });
+});
+
 app.listen(PORT, function () {
     console.log("Server listening on: http://localhost:%s", PORT);
 });

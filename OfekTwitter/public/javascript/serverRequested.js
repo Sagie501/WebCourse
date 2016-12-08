@@ -33,3 +33,7 @@ var addOrRemoveFollowerPromise = function (addRemoveObject) {
 var createNewUserPromise = function (user) {
     return axios.post(address + "/users", user);
 };
+
+var loginToUserPromise = function (user) {
+  return axios.put(address + "/login", user);
+};

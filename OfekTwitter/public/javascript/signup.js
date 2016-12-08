@@ -6,6 +6,7 @@ $("#signUpBtn").click(function () {
        createNewUserPromise({username: username.val(), password: password.val(), confirmPassword: confirmPassword.val()}).then(function (response) {
            if (response.data.result == true) {
                alert("Your User has been created!");
+               // TODO: Set the session to the user that created
                window.location = "index.html";
            } else {
                alert("Passwords don't equal try again!");
