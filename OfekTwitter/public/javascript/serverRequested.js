@@ -18,7 +18,7 @@ var getAllTweetsPromise = function () {
     return axios.get(address + "/tweets");
 };
 
-var getTweetsBtIdPromise = function (id) {
+var getTweetsByIdPromise = function (id) {
     return axios.get(address + "/tweets/ " + id);
 };
 

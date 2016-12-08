@@ -1,20 +1,27 @@
 $("#signUpBtn").click(function () {
-   let username = $("#username");
+    let username = $("#username");
    let password = $("#password");
    let confirmPassword = $("#confirmPassword");
     tooltipSettings(username, password, confirmPassword);
 
    if (validteInput(username.val(), password.val(), confirmPassword.val())) {
        createNewUserPromise({username: username.val(), password: password.val(), confirmPassword: confirmPassword.val()}).then(function (response) {
-           if (response.data.result == true) {
-               alert("Your User has been created!");
-               // TODO: Set the session to the user that created
-               window.location = "index.html";
-           } else {
-               alert("Passwords don't equal try again!");
-               password.val("");
-               confirmPassword.val("");
-           }
+           swal({
+               title: 'Your user has been created!',
+               type: 'success',
+               timer: 1500
+           });
+           setTimeout(function(){
+               loginToNewUser(username, password, confirmPassword);
+           }, 1500);
+       }).catch(function () {
+           swal({
+               title: "Something went wrong",
+               text: "Passwords doesn't equal try again!",
+               type: 'error'
+           });
+           password.val("");
+           confirmPassword.val("");
        });
    } else {
        tooltipHandler(username, password, confirmPassword);
@@ -65,4 +72,13 @@ function tooltipHandler(username, password, confirmPassword) {
         username.tooltip('hide');
         password.tooltip('hide');
     }
+}
+
+function loginToNewUser(username, password, confirmPassword) {
+    loginToUserPromise({username: username.val(), password: password.val()}).then(function (res) {
+        username.val("");
+        password.val("");
+        confirmPassword.val("");
+        window.location = "/";
+    });
 }

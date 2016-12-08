@@ -23,10 +23,15 @@ function routs(app) {
         res.end(JSON.stringify(userBL.getUsersFollowId(req.params.id)), 'utf-8');
     });
 
-    app.post('/users/addUser', function (req, res) {
-        res.writeHead(200, {'Content-Type': 'text/text'});
-        fs.writeFile('./json/users.json', JSON.stringify(userBL.addUser(req.body.username, req.body.password)));
-        res.end("added user", 'utf-8');
+    app.post('/users', function (req, res) {
+        if (req.body.password === req.body.confirmPassword) {
+            res.writeHead(200, {'Content-Type': 'text/text'});
+            fs.writeFile('./json/users.json', JSON.stringify(userBL.addUser(req.body.username, req.body.password)));
+            res.end("added user", 'utf-8');
+        } else {
+            res.writeHead(404, {'Content-Type': 'text/text'});
+            res.end("not the same password", 'utf-8');
+        }
     });
 
     app.put('/users/following', function (req, res) {

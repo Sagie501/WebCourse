@@ -19,13 +19,22 @@ $('#signInBtn').click(function () {
 
     if (validateUser(username, password)) {
         loginToUserPromise({username: username.val(), password: password.val()}).then(function (res) {
-                    sessionUser = res.data.sessionuser;
-                    alert("Welcome back " + username.value + "!");
+                swal({
+                    title: 'Welcome back ' + username.val() + "!",
+                    type: 'success',
+                    timer: 1500
+                });
+                setTimeout(function(){
                     username.val("");
                     password.val("");
                     window.location = "/";
+                }, 1500);
             }).catch(function () {
-                alert("Username or password not valid.");
+                swal({
+                    title: "Womething went wrong",
+                    text: "Username or password not valid. Please try again.",
+                    type: 'error'
+                });
                 password.val("");
             });
     } else {
