@@ -9,6 +9,7 @@ $('#signInBtn').result[0].addEventListener('click', function () {
                 if (result) {
                     sessionUserId = res.data.userId;
                     sessionUser = res.data;
+                    // TODO need to work with the session
                     alert("Welcome back " + username.value + "!");
                     window.location = "index.html";
                 } else {
