@@ -37,22 +37,30 @@ window.addEventListener("load", function () {
 
 let showTweets = function (tweets) {
     let usernamePromises = [];
-    axios.get('http://localhost:8000/tweets')
+    let userFollowing = [];
+    axios.get("http://localhost:8000/users/" + myId)
         .then(function (response) {
-            tweets = response.data;
+            userFollowing = response.data[0].following;
         }).then(function () {
+        axios.get('http://localhost:8000/tweets')
+            .then(function (response) {
+                tweets = response.data;
+            }).then(function () {
             tweets.forEach(function (tweet) {
-               usernamePromises.push(axios.get('http://localhost:8000/users/' + tweet.user).then(function (response) {
-                   tweet.username = response.data[0].username;
-               }))
+                usernamePromises.push(axios.get('http://localhost:8000/users/' + tweet.user).then(function (response) {
+                    tweet.username = response.data[0].username;
+                }))
             });
         }).then(function () {
             axios.all(usernamePromises).then(function () {
                 tweets.forEach(function (tweet) {
-                    createTweetHTML(tweet.username, tweet.text, "green");
+                    if (userFollowing.includes(tweet.user) || tweet.user == myId) {
+                        createTweetHTML(tweet.username, tweet.text, "green");
+                    }
                 })
             });
         });
+    });
 };
 
 let createTweetHTML = function (userName, tweetContent, color) {
