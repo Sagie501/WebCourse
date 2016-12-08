@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ofek Twitter</title>
+    <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/tests.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <a href="/" class="navbar-brand header-btn main-option">
+                    <img src="../images/ofek.png" class="image-logo" alt="Ofek Logo">
+                    OfekTwitter
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/usersPage" class="header-btn">Users</a></li>
+                <li><a href="/signIn" class="header-btn" id="logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <textarea id="tweetContent" placeholder="tweet text..." class="form-control" rows="3"></textarea>
+    <input id="publishBtn" type="button" class="btn btn-primary pull-right" value="publish">
+    <br/>
+    <div id="tweets" class="tweets container">
+    </div>
+</div>
+<script src="../javascript/OfekQuery.js"></script>
+<script src="../javascript/OfekTestFramework.js"></script>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script src="../javascript/serverRequested.js"></script>
+<script src="../javascript/session.js"></script>
+<script src="../javascript/tweets.js"></script>
+</body>
+</html>

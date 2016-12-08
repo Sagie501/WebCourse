@@ -1,6 +1,6 @@
 const PORT = 8000;
 const ip = "http://10.103.50.249";
-const address = ip + ":" + PORT;
+const address = "";
 
 var getAllUsersPromise = function () {
     return axios.get(address + "/users");
@@ -40,4 +40,8 @@ var loginToUserPromise = function (user) {
 
 var getSessionPromise = function () {
     return axios.get(address + "/session");
+};
+
+var logoutPromise = function () {
+  return axios.post(address + "/logout");
 };

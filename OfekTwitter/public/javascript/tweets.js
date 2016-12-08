@@ -4,10 +4,10 @@ let myId = "";
 
 window.addEventListener("load", function () {
     getSessionPromise().then(function (response) {
-        if (response.data != "") {
-            myId = response.data._id;
-            showTweets(tweets);
-        }
+        myId = response.data[0]._id;
+        showTweets(tweets);
+    }).catch(function () {
+        window.location = "/signIn";
     });
 
     /*test_group("Checking publishing", function () {
@@ -38,6 +38,10 @@ window.addEventListener("load", function () {
     });*/
 
     $("#publishBtn").result[0].addEventListener("click", createNewTweet);
+
+    $("#logout").result[0].addEventListener("click", function () {
+        logoutPromise();
+    });
 });
 
 let showTweets = function (tweets) {
@@ -120,7 +124,7 @@ let createNewTweet = function () {
         getUsersByIdPromise(myId).then(function (response) {
             let username = response.data[0].username;
             let newTweet = {
-                username: myId,
+                user: myId,
                 text: tweetText
             };
             putNewTweetPromise(newTweet).then(function () {

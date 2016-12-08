@@ -1,23 +1,23 @@
 var express = require('express');
-var bodyParser = require("body-parser");
 var app = express();
-var fs = require("fs");
+var bodyParser = require("body-parser");
 var session = require('express-session');
+var dataReader = require('./dataReader');
+var routs = require('./routerRouts');
+// var fs = require("fs");
 
 app.use(express.static('public'));
 app.use(express.static('OfekTwitter'));
-    app.use(bodyParser.json());
-
+app.use(bodyParser.json());
 app.use(session({
-    secret: 'keyboard cat',
-    cookie: {secure:false},
-    resave: false,
-    saveUninitialized: true,
+    secret: 'keyboard cat'
 }));
+
+routs(app);
 
 const PORT = 8000;
 
-let jsonRoute = "./json";
+// let jsonRoute = "./json";
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.route('/users').get(function (req, res) {
+/*app.route('/users').get(function (req, res) {
     fs.readFile(jsonRoute + '/users.json', function (err, content) {
         res.writeHead(200, {'Content-Type': 'text/json'});
         res.end(content, 'utf-8');
@@ -125,13 +125,13 @@ app.route('/login').put(function (req, res) {
 app.route('/session').get(function (req, res) {
     console.log(req.session.id);
     res.send(req.session.user);
-});
+});*/
 
 app.listen(PORT, function () {
     console.log("Server listening on: http://localhost:%s", PORT);
 });
 
-function getUserById (users, id) {
+/*function getUserById (users, id) {
     var userArr = [];
 
     for (user of users) {
@@ -205,4 +205,4 @@ function validId(users, id) {
         }
     }
     return true;
-}
+}*/

@@ -5,10 +5,14 @@ let users = [];
 
 window.addEventListener("load", function () {
     getSessionPromise().then(function (response) {
-        if (response.data != "") {
-            myId = response.data._id;
-            showUsers();
-        }
+        myId = response.data[0]._id;
+        showUsers();
+    }).catch(function () {
+        window.location = "/signIn";
+    });
+
+    $("#logout").result[0].addEventListener("click", function () {
+        logoutPromise();
     });
 });
 
