@@ -18,27 +18,13 @@ var showUsers = function () {
                     users = response.data;
                     for (var index = 0; index < users.length; index++) {
                         if (users[index]._id !== myId) {
-                            if (userFollowing.indexOf(users[index]._id) > -1) {
+                            if (userFollowing.includes(users[index]._id)) {
                                 users[index].follow = true;
+                                buildFollowe(users[index]);
                             } else {
                                 users[index].follow = false;
                             }
                             buildUser(users[index]);
-                        } else {
-                            var usersFollowingPromise = [];
-                            var usersFollowing = [];
-                            for (var index2 = 0; index2 < users[index].following.length; index2++) {
-                                usersFollowingPromise.push(axios.get("http://localhost:8000/users/" + users[index].following[index2])
-                                    .then(function (response) {
-                                        usersFollowing.push(response.data[0]);
-                                    }));
-                            }
-                            axios.all(usersFollowingPromise).then(function () {
-                                for (specUser of usersFollowing) {
-                                    specUser.follow = true;
-                                    buildFollowe(specUser);
-                                }
-                            });
                         }
                     }
                 });
