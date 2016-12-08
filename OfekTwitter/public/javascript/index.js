@@ -1,6 +1,6 @@
-var tweets = [];
+let tweets = [];
 
-var myId = "5e07631e-3974-47f8-a89c-bb41ce1e0e3d";
+let myId = "5e07631e-3974-47f8-a89c-bb41ce1e0e3d";
 
 window.addEventListener("load", function () {
     showTweets(tweets);
@@ -35,8 +35,8 @@ window.addEventListener("load", function () {
     $("#publishBtn").result[0].addEventListener("click", createNewTweet);
 });
 
-var showTweets = function (tweets) {
-    var usernamePromises = [];
+let showTweets = function (tweets) {
+    let usernamePromises = [];
     axios.get('http://localhost:8000/tweets')
         .then(function (response) {
             tweets = response.data;
@@ -55,19 +55,19 @@ var showTweets = function (tweets) {
         });
 };
 
-var createTweetHTML = function (userName, tweetContent, color) {
-    var headDiv = $("#tweets");
-    var rowDiv = document.createElement("div");
+let createTweetHTML = function (userName, tweetContent, color) {
+    let headDiv = $("#tweets");
+    let rowDiv = document.createElement("div");
     rowDiv.classList.add("row");
-    var userAvatarDiv = document.createElement("div");
+    let userAvatarDiv = document.createElement("div");
     userAvatarDiv.classList.add("user-avatar");
-    var avatarImg = document.createElement("img");
+    let avatarImg = document.createElement("img");
     avatarImg.setAttribute("src", "images/useravatar.png");
     avatarImg.setAttribute("alt", "User Avatar");
-    var userNameDiv = document.createElement("div");
+    let userNameDiv = document.createElement("div");
     userNameDiv.classList.add("user-name");
     userNameDiv.setAttribute("style", "color: " + color);
-    var tweetP = document.createElement("p");
+    let tweetP = document.createElement("p");
 
     userNameDiv.innerHTML = userName + " says:";
     tweetP.innerHTML = tweetContent;
@@ -79,14 +79,14 @@ var createTweetHTML = function (userName, tweetContent, color) {
     rowDiv.appendChild(tweetP);
 };
 
-var createNewTweet = function () {
-    var tweetText = $("#tweetContent").result[0].value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
+let createNewTweet = function () {
+    let tweetText = $("#tweetContent").result[0].value.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
 
     if (validateTweet(tweetText)) {
         axios.get("http://localhost:8000/users/" + myId)
             .then(function (response) {
-                var username = response.data[0].username;
-                var newTweet = {
+                let username = response.data[0].username;
+                let newTweet = {
                     username: myId,
                     text: tweetText
                 };
@@ -96,42 +96,42 @@ var createNewTweet = function () {
                         $("#tweetContent").result[0].value = "";
                         createTweetHTML(username, newTweet.text, "black");
                     });
-            })
+            });
     }
 };
 
-var validateTweet = function (tweetContent) {
+let validateTweet = function (tweetContent) {
     return tweetContent != null && tweetContent != undefined && tweetContent != "";
 };
 
 // -------------TESTING------------------------------------------------------------------
 // Testing here because it makes problem with the listener
-var testNewTweet = function () {
-    var input = $("#tweetContent");
+let testNewTweet = function () {
+    let input = $("#tweetContent");
     input.result[0].value = "testing";
     createNewTweet();
-    var originTweets = tweets.filter(function (item) {return item.text != "testing"});
-    var isWork = originTweets.length != tweets.length;
+    let originTweets = tweets.filter(function (item) {return item.text != "testing"});
+    let isWork = originTweets.length != tweets.length;
     tweets = originTweets;
     $("#tweets").result[0].lastElementChild.remove();
     return isWork;
 };
 
-var testEmptyTweet = function () {
-    var input = $("#tweetContent");
+let testEmptyTweet = function () {
+    let input = $("#tweetContent");
     input.result[0].value = "";
     createNewTweet();
-    var newTweets = tweets.filter(function (item) {return item.text != ""});
-    var isWork = newTweets.length === tweets.length;
+    let newTweets = tweets.filter(function (item) {return item.text != ""});
+    let isWork = newTweets.length === tweets.length;
     tweets = newTweets;
     return isWork;
 };
 
-var oneImageLogo = function () {
+let oneImageLogo = function () {
     return $(".image-logo").count() === 1;
 };
 
-var threeTweets = function () {
+let threeTweets = function () {
     return $("#tweets .row").count() === 3;
 };
 

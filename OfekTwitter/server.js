@@ -69,9 +69,9 @@ app.route('/users/following').put(function (req, res) {
         let users = JSON.parse(content.toString());
         let userId = req.body.userId;
         let userIdToAddOrRemove = req.body.userIdToAddOrRemove;
-        let newUsers = addOrRemoveFollower(users, userId, userIdToAddOrRemove);
-        fs.writeFile('public/json/users.json', JSON.stringify(newUsers));
-        res.end(JSON.stringify(newUsers), 'utf-8');
+        addOrRemoveFollower(users, userId, userIdToAddOrRemove);
+        fs.writeFile('public/json/users.json', JSON.stringify(users));
+        res.end(JSON.stringify(users), 'utf-8');
     });
 });
 
@@ -110,17 +110,11 @@ function getUsersFollowId(users, id) {
 }
 
 function addOrRemoveFollower(users, userId, userIdToAddOrRemove) {
-    let newUsers = users.slice(0);
-    for (user of newUsers) {
-        if (user._id === userId) {
-            if (user.following.includes(userIdToAddOrRemove)) {
-                let index = user.following.indexOf(userIdToAddOrRemove);
-                user.following.splice(index, 1);
-            } else {
-                user.following.push(userIdToAddOrRemove);
-            }
-            break;
-        }
+    let user = getUserById(users, userId)[0];
+    if (user.following.includes(userIdToAddOrRemove)) {
+        let index = user.following.indexOf(userIdToAddOrRemove);
+        user.following.splice(index, 1);
+    } else {
+        user.following.push(userIdToAddOrRemove);
     }
-    return newUsers;
 }

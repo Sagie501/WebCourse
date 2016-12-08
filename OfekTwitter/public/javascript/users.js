@@ -1,13 +1,13 @@
-var myId = "5e07631e-3974-47f8-a89c-bb41ce1e0e3d";
+let myId = "5e07631e-3974-47f8-a89c-bb41ce1e0e3d";
 
-var users = [];
+let users = [];
 
 window.addEventListener("load", function () {
     showUsers();
 });
 
-var showUsers = function () {
-    var userFollowing = [];
+let showUsers = function () {
+    let userFollowing = [];
     axios.get("http://localhost:8000/users/" + myId)
         .then(function (response) {
             userFollowing = response.data[0].following;
@@ -16,7 +16,7 @@ var showUsers = function () {
             axios.get('http://localhost:8000/users')
                 .then(function (response) {
                     users = response.data;
-                    for (var index = 0; index < users.length; index++) {
+                    for (let index = 0; index < users.length; index++) {
                         if (users[index]._id !== myId) {
                             if (userFollowing.includes(users[index]._id)) {
                                 users[index].follow = true;
@@ -31,9 +31,9 @@ var showUsers = function () {
         });
 };
 
-var buildUser = function (user) {
-    var headDiv = $("#usersContainer");
-    var colDiv = document.createElement("div");
+let buildUser = function (user) {
+    let headDiv = $("#usersContainer");
+    let colDiv = document.createElement("div");
     colDiv.classList.add("col-md-2");
     colDiv.classList.add(user.username);
 
@@ -41,9 +41,9 @@ var buildUser = function (user) {
     colDiv.appendChild(build(user));
 };
 
-var buildFollowe = function (user) {
-    var headDiv = $("#following");
-    var colDiv = document.createElement("div");
+let buildFollowe = function (user) {
+    let headDiv = $("#following");
+    let colDiv = document.createElement("div");
     colDiv.classList.add("col-md-12");
     colDiv.classList.add(user.username);
 
@@ -51,16 +51,16 @@ var buildFollowe = function (user) {
     colDiv.appendChild(build(user));
 };
 
-var build = function (user) {
-    var thumbnail = document.createElement("div");
+let build = function (user) {
+    let thumbnail = document.createElement("div");
     thumbnail.classList.add("thumbnail");
-    var avatarImg = document.createElement("img");
+    let avatarImg = document.createElement("img");
     avatarImg.setAttribute("src", "images/useravatar.png");
     avatarImg.setAttribute("alt", "User Avatar");
-    var caption = document.createElement("div");
+    let caption = document.createElement("div");
     caption.classList.add("caption");
-    var buttonP = document.createElement("p");
-    var input = document.createElement("input");
+    let buttonP = document.createElement("p");
+    let input = document.createElement("input");
     input.setAttribute("type", "button");
     input.setAttribute("id", "btn_" + user.username);
     if (!user.follow) {
@@ -75,7 +75,7 @@ var build = function (user) {
     input.addEventListener("click", function() {
         btnClicked(this, user);
     });
-    var usernameP = document.createElement("p");
+    let usernameP = document.createElement("p");
 
     usernameP.innerHTML = user.username;
 
@@ -88,7 +88,7 @@ var build = function (user) {
     return thumbnail;
 };
 
-var btnClicked = function (btn, user) {
+let btnClicked = function (btn, user) {
     axios.put("http://localhost:8000/users/following", {userId: myId, userIdToAddOrRemove: user._id})
         .then(function () {
             if (!user.follow) {
@@ -103,29 +103,29 @@ var btnClicked = function (btn, user) {
         });
 };
 
-var followClicked = function (btn) {
+let followClicked = function (btn) {
     btn.setAttribute("value", "unfollow");
     btn.classList.remove("btn-success");
     btn.classList.add("btn-danger");
 };
 
-var unfollowClicked = function (btn) {
+let unfollowClicked = function (btn) {
     btn.setAttribute("value", "follow");
     btn.classList.remove("btn-danger");
     btn.classList.add("btn-success");
 };
 
-var addToFollowesList = function(user) {
+let addToFollowesList = function(user) {
     buildFollowe(user);
 };
 
-var removeFromList = function (userName) {
+let removeFromList = function (userName) {
     $("." + userName).result[1].remove();
 };
 
 $("#filterText").result[0].addEventListener("keyup", function () {
-   var filterText =  $("#filterText").result[0].value;
-   for (var index = 0; index < users.length; index++) {
+    let filterText =  $("#filterText").result[0].value;
+   for (let index = 0; index < users.length; index++) {
        if (users[index]._id !== myId) {
            if (!users[index].username.includes(filterText)) {
                $("." + users[index].username).result[0].classList.add("hidden");
