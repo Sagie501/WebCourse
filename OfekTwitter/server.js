@@ -4,9 +4,12 @@ var app = express();
 var fs = require("fs");
 
 app.use(express.static('public'));
+app.use(express.static('OfekTwitter'));
 app.use(bodyParser.json());
 
 const PORT = 8000;
+
+let jsonRoute = "./json";
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -16,14 +19,14 @@ app.use(function(req, res, next) {
 });
 
 app.route('/users').get(function (req, res) {
-    fs.readFile('./public/json/users.json', function (err, content) {
+    fs.readFile(jsonRoute + '/users.json', function (err, content) {
         res.writeHead(200, {'Content-Type': 'text/json'});
         res.end(content, 'utf-8');
     });
 });
 
 app.route('/users/:id').get(function (req, res) {
-    fs.readFile('./public/json/users.json', function (err, content) {
+    fs.readFile(jsonRoute + '/users.json', function (err, content) {
         let users = JSON.parse(content.toString());
         let user = getUserById(users, req.params.id);
         res.end(JSON.stringify(user), 'utf-8');
@@ -31,7 +34,7 @@ app.route('/users/:id').get(function (req, res) {
 });
 
 app.route('/users/following/:id').get(function (req, res) {
-    fs.readFile('./public/json/users.json', function (err, content) {
+    fs.readFile(jsonRoute + '/users.json', function (err, content) {
         let users = JSON.parse(content.toString());
         let usersFollowId = getUsersFollowId(users, req.params.id);
         res.end(JSON.stringify(usersFollowId), 'utf-8');
@@ -39,14 +42,14 @@ app.route('/users/following/:id').get(function (req, res) {
 });
 
 app.route('/tweets').get(function (req, res) {
-    fs.readFile('./public/json/tweets.json', function (err, content) {
+    fs.readFile(jsonRoute + '/tweets.json', function (err, content) {
         res.writeHead(200, {'Content-Type': 'text/json'});
         res.end(content, 'utf-8');
     });
 });
 
 app.route('/tweets/:userId').get(function (req, res) {
-    fs.readFile('./public/json/tweets.json', function (err, content) {
+    fs.readFile(jsonRoute + '/tweets.json', function (err, content) {
         let allTweets = JSON.parse(content.toString());
         let userTweets = getTweetsById(allTweets, req.params.userId);
         res.end(JSON.stringify(userTweets), 'utf-8');
@@ -54,29 +57,30 @@ app.route('/tweets/:userId').get(function (req, res) {
 });
 
 app.route('/tweets').put(function (req, res) {
-    fs.readFile('./public/json/tweets.json', function (err, content) {
+    fs.readFile(jsonRoute + '/tweets.json', function (err, content) {
         res.writeHead(200, {'Content-Type': 'text/json'});
         let tweets = JSON.parse(content.toString());
-        tweets.push({text: req.body.text, user: req.body.username});
-        fs.writeFile('public/json/tweets.json', JSON.stringify(tweets));
+        let text = req.body.text.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
+        tweets.push({text: text, user: req.body.username});
+        fs.writeFile(jsonRoute + '/tweets.json', JSON.stringify(tweets));
         res.end(JSON.stringify(tweets), 'utf-8');
     });
 });
 
 app.route('/users/following').put(function (req, res) {
-    fs.readFile('./public/json/users.json', function (err, content) {
+    fs.readFile(jsonRoute + '/users.json', function (err, content) {
         res.writeHead(200, {'Content-Type': 'text/json'});
         let users = JSON.parse(content.toString());
         let userId = req.body.userId;
         let userIdToAddOrRemove = req.body.userIdToAddOrRemove;
         addOrRemoveFollower(users, userId, userIdToAddOrRemove);
-        fs.writeFile('public/json/users.json', JSON.stringify(users));
+        fs.writeFile(jsonRoute + '/users.json', JSON.stringify(users));
         res.end(JSON.stringify(users), 'utf-8');
     });
 });
 
 app.route('/users').post(function (req, res) {
-    fs.readFile('./public/json/users.json', function (err, content) {
+    fs.readFile(jsonRoute + '/users.json', function (err, content) {
         res.writeHead(200, {'Content-Type': 'text/json'});
         let users = JSON.parse(content.toString());
         let username = req.body.username;
@@ -84,7 +88,7 @@ app.route('/users').post(function (req, res) {
         let confirmPassword = req.body.confirmPassword;
         if (password === confirmPassword) {
             users.push({_id: generateValidId(users), username: username, password: password, following: []});
-            fs.writeFile('public/json/users.json', JSON.stringify(users));
+            fs.writeFile(jsonRoute + '/users.json', JSON.stringify(users));
             res.end(JSON.stringify({result: true}), 'utf-8');
         }
         res.end(JSON.stringify({result: false}), 'utf-8');
@@ -92,7 +96,7 @@ app.route('/users').post(function (req, res) {
 });
 
 app.route('/login').put(function (req, res) {
-    fs.readFile('./public/json/users.json', function (err, content) {
+    fs.readFile(jsonRoute + '/users.json', function (err, content) {
         res.writeHead(200, {'Content-Type': 'text/json'});
         let users = JSON.parse(content.toString());
         let username = req.body.username;
@@ -113,6 +117,7 @@ app.listen(PORT, function () {
 
 function getUserById (users, id) {
     var userArr = [];
+
     for (user of users) {
         if (user._id  === id) {
             userArr.push(user);
@@ -151,12 +156,16 @@ function addOrRemoveFollower(users, userId, userIdToAddOrRemove) {
     }
 }
 
+function generateID() {
+    return generateRandomString(8) + '-' + generateRandomString(4) + '-' + generateRandomString(4) + '-' +
+        generateRandomString(4) + '-' + generateRandomString(12);
+}
+
 function generateValidId(users) {
     let newId = "";
 
     do {
-        newId = generateRandomString(8) + '-' + generateRandomString(4) + '-' + generateRandomString(4) + '-' +
-            generateRandomString(4) + '-' + generateRandomString(12);
+        newId = generateID();
     } while(!validId(users, newId));
 
     return newId;

@@ -13,50 +13,50 @@ let showUsers = function () {
     }).then(function () {
         getAllUsersPromise().then(function (response) {
             users = response.data;
-            for (let index = 0; index < users.length; index++) {
-                if (users[index]._id !== myId) {
-                    if (userFollowing.includes(users[index]._id)) {
-                        users[index].follow = true;
-                        buildFollowe(users[index]);
+            for (let i = 0; i < users.length; i++) {
+                if (users[i]._id !== myId) {
+                    if (userFollowing.includes(users[i]._id)) {
+                        users[i].follow = true;
+                        buildFollowe(users[i]);
                     } else {
-                        users[index].follow = false;
+                        users[i].follow = false;
                     }
-                    buildUser(users[index]);
+                    buildUser(users[i]);
                 }
             }
         })
     });
     /*axios.get("http://localhost:8000/users/" + myId)
-        .then(function (response) {
-            userFollowing = response.data[0].following;
-        })
-        .then(function () {
-            axios.get('http://localhost:8000/users')
-                .then(function (response) {
-                    users = response.data;
-                    for (let index = 0; index < users.length; index++) {
-                        if (users[index]._id !== myId) {
-                            if (userFollowing.includes(users[index]._id)) {
-                                users[index].follow = true;
-                                buildFollowe(users[index]);
-                            } else {
-                                users[index].follow = false;
-                            }
-                            buildUser(users[index]);
-                        }
-                    }
-                });
-        });*/
+     .then(function (response) {
+     userFollowing = response.data[0].following;
+     })
+     .then(function () {
+     axios.get('http://localhost:8000/users')
+     .then(function (response) {
+     users = response.data;
+     for (let index = 0; index < users.length; index++) {
+     if (users[index]._id !== myId) {
+     if (userFollowing.includes(users[index]._id)) {
+     users[index].follow = true;
+     buildFollowe(users[index]);
+     } else {
+     users[index].follow = false;
+     }
+     buildUser(users[index]);
+     }
+     }
+     });
+     });*/
 };
 
 let buildUser = function (user) {
-    let headDiv = $("#usersContainer");
-    let colDiv = document.createElement("div");
-    colDiv.classList.add("col-md-2");
-    colDiv.classList.add(user.username);
+    let usersContainerElement = $("#usersContainer");
+    let specificUserContainer = document.createElement("div");
+    specificUserContainer.classList.add("col-md-2");
+    specificUserContainer.classList.add(user.username);
 
-    headDiv.result[0].appendChild(colDiv);
-    colDiv.appendChild(build(user));
+    usersContainerElement.result[0].appendChild(specificUserContainer);
+    specificUserContainer.appendChild(build(user));
 };
 
 let buildFollowe = function (user) {
@@ -90,7 +90,7 @@ let build = function (user) {
         input.classList.add("btn");
         input.classList.add("btn-danger");
     }
-    input.addEventListener("click", function() {
+    input.addEventListener("click", function () {
         btnClicked(this, user);
     });
     let usernameP = document.createElement("p");
@@ -119,17 +119,17 @@ let btnClicked = function (btn, user) {
         }
     });
     /*axios.put("http://localhost:8000/users/following", {userId: myId, userIdToAddOrRemove: user._id})
-        .then(function () {
-            if (!user.follow) {
-                followClicked(btn);
-                user.follow = !user.follow;
-                addToFollowesList(user);
-            } else {
-                unfollowClicked(document.getElementById("btn_" + user.username));
-                user.follow = !user.follow;
-                removeFromList(user.username);
-            }
-        });*/
+     .then(function () {
+     if (!user.follow) {
+     followClicked(btn);
+     user.follow = !user.follow;
+     addToFollowesList(user);
+     } else {
+     unfollowClicked(document.getElementById("btn_" + user.username));
+     user.follow = !user.follow;
+     removeFromList(user.username);
+     }
+     });*/
 };
 
 let followClicked = function (btn) {
@@ -144,7 +144,7 @@ let unfollowClicked = function (btn) {
     btn.classList.add("btn-success");
 };
 
-let addToFollowesList = function(user) {
+let addToFollowesList = function (user) {
     buildFollowe(user);
 };
 
@@ -153,27 +153,27 @@ let removeFromList = function (userName) {
 };
 
 $("#filterText").result[0].addEventListener("keyup", function () {
-    let filterText =  $("#filterText").result[0].value;
-   for (let index = 0; index < users.length; index++) {
-       if (users[index]._id !== myId) {
-           if (!users[index].username.includes(filterText)) {
-               $("." + users[index].username).result[0].classList.add("hidden");
-           } else {
-               $("." + users[index].username).result[0].classList.remove("hidden");
-           }
-       }
-   }
+    let filterText = $("#filterText").result[0].value;
+    for (let index = 0; index < users.length; index++) {
+        if (users[index]._id !== myId) {
+            if (!users[index].username.includes(filterText)) {
+                $("." + users[index].username).result[0].classList.add("hidden");
+            } else {
+                $("." + users[index].username).result[0].classList.remove("hidden");
+            }
+        }
+    }
 });
 
 /*var testFollowClicked = function () {
-    var input = document.getElementById("btn_" + users[0].username);
-    var originFollow = users[0].follow;
-    btnClicked(input, users[0]);
-    var isWork = originFollow != users[0].follow;
-    btnClicked(input, users[0]);
-    return isWork;
-};
+ var input = document.getElementById("btn_" + users[0].username);
+ var originFollow = users[0].follow;
+ btnClicked(input, users[0]);
+ var isWork = originFollow != users[0].follow;
+ btnClicked(input, users[0]);
+ return isWork;
+ };
 
-test_group("Checking following", function () {
-    assert(testFollowClicked, "Check follow or unfollow user");
-});*/
+ test_group("Checking following", function () {
+ assert(testFollowClicked, "Check follow or unfollow user");
+ });*/
