@@ -35,17 +35,17 @@
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input class="form-control col-md-offset-6" type="text" id="username" placeholder="Username">
+                            <input class="form-control col-md-offset-6" type="text" id="username" placeholder="Username" data-toggle="tooltip" data-placement="right" title="Username can't be empty">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input class="form-control col-md-offset-6" type="text" id="password" placeholder="Password">
+                            <input class="form-control col-md-offset-6" type="password" id="password" placeholder="Password" data-toggle="tooltip" data-placement="right" title="Password can't be empty">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <input class="form-control col-md-offset-6" type="text" id="confirmPassword" placeholder="Confirm Password">
+                            <input class="form-control col-md-offset-6" type="password" id="confirmPassword" placeholder="Confirm Password" data-toggle="tooltip" data-placement="right" title="Password Confirm can't be empty">
                         </div>
                     </div>
                     <div class="row">
@@ -64,5 +64,13 @@
                 </div>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+                crossorigin="anonymous"></script>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="javascript/OfekTestFramework.js"></script>
+        <script src="node_modules/axios/dist/axios.js"></script>
+        <script src="javascript/serverRequested.js"></script>
+        <script src="javascript/signup.js"></script>
     </body>
 </html>

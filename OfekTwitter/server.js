@@ -75,6 +75,22 @@ app.route('/users/following').put(function (req, res) {
     });
 });
 
+app.route('/users').post(function (req, res) {
+    fs.readFile('./public/json/users.json', function (err, content) {
+        res.writeHead(200, {'Content-Type': 'text/json'});
+        let users = JSON.parse(content.toString());
+        let username = req.body.username;
+        let password = req.body.password;
+        let confirmPassword = req.body.confirmPassword;
+        if (password === confirmPassword) {
+            users.push({_id: generateValidId(users), username: username, password: password, following: []});
+            fs.writeFile('public/json/users.json', JSON.stringify(users));
+            res.end(JSON.stringify({result: true}), 'utf-8');
+        }
+        res.end(JSON.stringify({result: false}), 'utf-8');
+    });
+});
+
 app.listen(PORT, function () {
     console.log("Server listening on: http://localhost:%s", PORT);
 });
@@ -117,4 +133,35 @@ function addOrRemoveFollower(users, userId, userIdToAddOrRemove) {
     } else {
         user.following.push(userIdToAddOrRemove);
     }
+}
+
+function generateValidId(users) {
+    let newId = "";
+
+    do {
+        newId = generateRandomString(8) + '-' + generateRandomString(4) + '-' + generateRandomString(4) + '-' +
+            generateRandomString(4) + '-' + generateRandomString(12);
+    } while(!validId(users, newId));
+
+    return newId;
+}
+
+function generateRandomString(length) {
+    let mask = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+
+    for (let index = 0; index < length; index++) {
+        result += mask[Math.floor(Math.random() * mask.length)];
+    }
+
+    return result;
+}
+
+function validId(users, id) {
+    for (user of users) {
+        if (user._id === id) {
+            return false;
+        }
+    }
+    return true;
 }

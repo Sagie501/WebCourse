@@ -29,3 +29,7 @@ var putNewTweetPromise = function (newTweet) {
 var addOrRemoveFollowerPromise = function (addRemoveObject) {
     return axios.put(address + "/users/following", addRemoveObject);
 };
+
+var createNewUserPromise = function (user) {
+    return axios.post(address + "/users", user);
+};
