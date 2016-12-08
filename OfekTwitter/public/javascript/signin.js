@@ -7,11 +7,9 @@ $('#signInBtn').result[0].addEventListener('click', function () {
                 let result = res.data.result;
 
                 if (result) {
-                    sessionUserId = res.data.userId;
-                    sessionUser = res.data;
-                    // TODO need to work with the session
+                    sessionUser = res.data.sessionuser;
                     alert("Welcome back " + username.value + "!");
-                    window.location = "index.html";
+                    // window.location = "index.html";
                 } else {
                     alert("Username or password not valid.");
                     password.value = "";

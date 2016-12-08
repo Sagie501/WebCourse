@@ -37,3 +37,7 @@ var createNewUserPromise = function (user) {
 var loginToUserPromise = function (user) {
   return axios.put(address + "/login", user);
 };
+
+var getSessionPromise = function () {
+    return axios.get(address + "/session");
+};

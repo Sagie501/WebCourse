@@ -1,9 +1,15 @@
-let myId = "5e07631e-3974-47f8-a89c-bb41ce1e0e3d";
+let myId = "";
+
 
 let users = [];
 
 window.addEventListener("load", function () {
-    showUsers();
+    getSessionPromise().then(function (response) {
+        if (response.data != "") {
+            myId = response.data._id;
+            showUsers();
+        }
+    });
 });
 
 let showUsers = function () {

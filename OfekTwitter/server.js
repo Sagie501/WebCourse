@@ -2,10 +2,18 @@ var express = require('express');
 var bodyParser = require("body-parser");
 var app = express();
 var fs = require("fs");
+var session = require('express-session');
 
 app.use(express.static('public'));
 app.use(express.static('OfekTwitter'));
-app.use(bodyParser.json());
+    app.use(bodyParser.json());
+
+app.use(session({
+    secret: 'keyboard cat',
+    cookie: {secure:false},
+    resave: false,
+    saveUninitialized: true,
+}));
 
 const PORT = 8000;
 
@@ -104,11 +112,19 @@ app.route('/login').put(function (req, res) {
 
         for (user of users) {
             if (user.username === username && user.password === password) {
-                res.end(JSON.stringify({result: true, userId: user._id}), 'utf-8');
+                console.log(req.session.id);
+                req.session.user = user;
+                req.session.save();
+                res.end(JSON.stringify({result: true}), 'utf-8');
             }
         }
         res.end(JSON.stringify({result: false}), 'utf-8');
     });
+});
+
+app.route('/session').get(function (req, res) {
+    console.log(req.session.id);
+    res.send(req.session.user);
 });
 
 app.listen(PORT, function () {
