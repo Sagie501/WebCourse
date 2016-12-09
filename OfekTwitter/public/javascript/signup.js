@@ -8,16 +8,17 @@ $("#signUpBtn").click(function () {
        createNewUserPromise({username: username.val(), password: password.val(), confirmPassword: confirmPassword.val()}).then(function (response) {
            swal({
                title: 'Your user has been created!',
+               text: 'Start tweet with your friends!',
                type: 'success',
-               timer: 1500
+               timer: 2000
            });
            setTimeout(function(){
                loginToNewUser(username, password, confirmPassword);
-           }, 1500);
+           }, 2000);
        }).catch(function () {
            swal({
-               title: "Something went wrong",
-               text: "Passwords doesn't equal try again!",
+               title: "Something went wrong!",
+               text: "Passwords doesn't equal or this password is invalid try again!",
                type: 'error'
            });
            password.val("");

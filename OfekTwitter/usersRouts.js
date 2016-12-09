@@ -24,13 +24,13 @@ function routs(app) {
     });
 
     app.post('/users', function (req, res) {
-        if (req.body.password === req.body.confirmPassword) {
+        if (req.body.password === req.body.confirmPassword && userBL.validPassword(req.body.password)) {
             res.writeHead(200, {'Content-Type': 'text/text'});
             fs.writeFile('./json/users.json', JSON.stringify(userBL.addUser(req.body.username, req.body.password)));
             res.end("added user", 'utf-8');
         } else {
             res.writeHead(404, {'Content-Type': 'text/text'});
-            res.end("not the same password", 'utf-8');
+            res.end("valid password", 'utf-8');
         }
     });
 

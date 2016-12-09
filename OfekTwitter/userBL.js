@@ -43,7 +43,7 @@ function getAllUsers() {
 
 function findUserNameByUsernameAndPassword(username, password) {
     for (user of users) {
-        if (user.username === username && user.password === password) {
+        if (user.username.toLowerCase() === username.toLowerCase() && user.password === password) {
             return {_id: user._id, username: user.username, following: user.following, idd: user.idd};
         }
     }
@@ -52,7 +52,7 @@ function findUserNameByUsernameAndPassword(username, password) {
 
 function checkUserInUsers(username, password) {
     for (user of users) {
-        if (user.username === username && user.password === password) {
+        if (user.username.toLowerCase() === username.toLowerCase() && user.password === password) {
             return true;
         }
     }
@@ -62,6 +62,15 @@ function checkUserInUsers(username, password) {
 function addUser(username, passeword) {
     users.push({_id: generateValidId(users), username: username, password: passeword, following: []});
     return users;
+}
+
+function validPassword(password) {
+    for (user of users) {
+        if (password === user.password) {
+            return false;
+        }
+    }
+    return true;
 }
 
 function generateValidId(users) {
@@ -106,5 +115,6 @@ module.exports = {
     getAllUsers: getAllUsers,
     addUser: addUser,
     findUserNameByUsernameAndPassword: findUserNameByUsernameAndPassword,
-    checkUserInUsers: checkUserInUsers
+    checkUserInUsers: checkUserInUsers,
+    validPassword: validPassword
 };
