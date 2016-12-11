@@ -44,7 +44,7 @@ function getAllUsers() {
 function findUserNameByUsernameAndPassword(username, password) {
     for (user of users) {
         if (user.username.toLowerCase() === username.toLowerCase() && user.password === password) {
-            return {_id: user._id, username: user.username, following: user.following, idd: user.idd};
+            return {_id: user._id, username: user.username, following: user.following};
         }
     }
     return null;

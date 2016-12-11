@@ -173,6 +173,7 @@ $("#filterText").result[0].addEventListener("keyup", function () {
             }
         }
     }
+
 });
 
 /*var testFollowClicked = function () {
