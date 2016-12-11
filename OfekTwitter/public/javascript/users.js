@@ -90,7 +90,7 @@ let build = function (user) {
     let buttonP = document.createElement("p");
     let input = document.createElement("input");
     input.setAttribute("type", "button");
-    input.setAttribute("id", "btn_" + user.username);
+    input.setAttribute("id", "btn_" + user._id);
     if (!user.follow) {
         input.setAttribute("value", "follow");
         input.classList.add("btn");
@@ -123,7 +123,7 @@ let btnClicked = function (btn, user) {
             user.follow = !user.follow;
             addToFollowesList(user);
         } else {
-            unfollowClicked(document.getElementById("btn_" + user.username));
+            unfollowClicked(document.getElementById("btn_" + user._id));
             user.follow = !user.follow;
             removeFromList(user.username);
         }
@@ -167,9 +167,9 @@ $("#filterText").result[0].addEventListener("keyup", function () {
     for (let index = 0; index < users.length; index++) {
         if (users[index]._id !== myId) {
             if (!users[index].username.includes(filterText)) {
-                $("." + users[index].username).result[0].classList.add("hidden");
+                $("." + users[index]._id).result[0].classList.add("hidden");
             } else {
-                $("." + users[index].username).result[0].classList.remove("hidden");
+                $("." + users[index]._id).result[0].classList.remove("hidden");
             }
         }
     }
