@@ -7,7 +7,7 @@ var getAllUsersPromise = function () {
 };
 
 var getUsersByIdPromise = function (id) {
-    return axios.get(address + "/users/" +id);
+    return axios.get(address + "/users/" + id);
 };
 
 var getUsersFollowIdPromise = function (id) {
