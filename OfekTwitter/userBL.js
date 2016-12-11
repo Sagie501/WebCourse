@@ -3,7 +3,7 @@ var users = [];
 
 dataReader.users().then(function (response) {
     users = response;
-})
+});
 
 function getUserById (id) {
     var userArr = [];
@@ -51,12 +51,7 @@ function findUserNameByUsernameAndPassword(username, password) {
 }
 
 function checkUserInUsers(username, password) {
-    for (user of users) {
-        if (user.username.toLowerCase() === username.toLowerCase() && user.password === password) {
-            return true;
-        }
-    }
-    return false;
+    return findUserNameByUsernameAndPassword(username, password) != null;
 }
 
 function addUser(username, passeword) {
