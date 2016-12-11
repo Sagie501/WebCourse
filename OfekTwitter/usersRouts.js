@@ -24,7 +24,7 @@ function routs(app) {
     });
 
     app.post('/users', function (req, res) {
-        if (req.body.password === req.body.confirmPassword && userBL.validPassword(req.body.password)) {
+        if (req.body.password === req.body.confirmPassword && userBL.validPassword(req.body.username, req.body.password)) {
             res.writeHead(200, {'Content-Type': 'text/text'});
             fs.writeFile('./json/users.json', JSON.stringify(userBL.addUser(req.body.username, req.body.password)));
             res.end("added user", 'utf-8');

@@ -64,9 +64,9 @@ function addUser(username, passeword) {
     return users;
 }
 
-function validPassword(password) {
+function validPassword(username, password) {
     for (user of users) {
-        if (password === user.password) {
+        if (username == user.username && password === user.password) {
             return false;
         }
     }
