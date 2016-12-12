@@ -59,7 +59,9 @@ describe('prototype functions', function () {
 
     it('Should remove class to the selected elements', function () {
         let eleAmount = $('div li p');
-        let classToRemove =  'stamClass';
+        let classToRemove =  'haha';
+
+        eleAmount.removeClass(classToRemove);
 
         let flag = true;
 
@@ -101,7 +103,7 @@ describe('prototype functions', function () {
         expect($('div li p' + childElement)).not.toBe(undefined);
     });
 
-    it('Should return the element in the index', function () {
+    it('Should return the element by the index', function () {
         let eleAmount = $('div li p');
 
         expect(eleAmount.get(0)).toBe(eleAmount.result[0]);

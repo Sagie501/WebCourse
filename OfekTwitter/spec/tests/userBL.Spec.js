@@ -28,7 +28,7 @@ describe("userBL", function () {
 
             var result = userBL.getUsersFollowId(validUserId);
 
-            expect(result).not.toBe(undefined);
+            expect(result).toBeGreaterThan(0);
         });
 
         it("should return empty array if the user isn't being followed", function () {
