@@ -210,7 +210,7 @@ OfekQuery.prototype.all = function () {
 };
 
 OfekQuery.prototype.filter = function () {
-    var newOfekQuery = new OfekQuery();
+    let newOfekQuery = new OfekQuery();
     for (result of this.result) {
         if (runTestOnObject(result, arguments)) {
             newOfekQuery.result.push(result);

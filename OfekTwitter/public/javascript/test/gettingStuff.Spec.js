@@ -131,4 +131,23 @@ describe('prototype functions', function () {
             expect(curr.classList.contains('check')).toBe(true);
         })
     });
+
+    it('Should set attribute for each object selected', function () {
+        var eleAmount = $('div li p');
+        var attribute = 'id';
+        var value = 'test';
+
+        eleAmount.setAttribute(attribute, value);
+
+        var flag = true;
+
+        for (element of eleAmount.result) {
+            if (!element.attribute == value) {
+                flag = false;
+                break;
+            }
+        }
+
+        expect(flag).toBe(true);
+    });
 });
