@@ -41,27 +41,69 @@ describe('prototype functions', function () {
 
     it('Should add class to the selected elements', function () {
         var eleAmount = $('div li p');
+        var classToAdd =  'stamClass';
 
-        eleAmount.addClass('stamClass');
+        eleAmount.addClass(classToAdd);
 
-        expect(eleAmount.result[0].classList.contains('stamClass')).toBe(true);
+        var flag = true;
+
+        for (element of eleAmount.result) {
+            if (!element.classList.contains(classToAdd)) {
+                flag = false;
+                break;
+            }
+        }
+
+        expect(flag).toBe(true);
     });
 
     it('Should remove class to the selected elements', function () {
         var eleAmount = $('div li p');
+        var classToRemove =  'stamClass';
 
-        eleAmount.removeClass('stamClass');
+        var flag = true;
 
-        expect(eleAmount.result[0].classList.contains('stamClass')).toBe(false);
-    })
-
-    it('Should do the function on each element', function () {
-        var eleAmount = $('div li p');
-
-        function check() {
-
+        for (element of eleAmount.result) {
+            if (element.classList.contains(classToRemove)) {
+                flag = false;
+                break;
+            }
         }
 
-        expect(eleAmount.result[0].classList.contains('stamClass')).toBe(false);
-    })
+        expect(flag).toBe(true);
+    });
+
+    it('Should add css on the element', function () {
+        var eleAmount = $('div li p');
+        var property = 'color';
+        var value = 'green';
+
+        eleAmount.css(property, value);
+
+        var flag = true;
+
+        for (element of eleAmount.result) {
+            if (!element.style[property].includes(value)) {
+                flag = false;
+                break;
+            }
+        }
+
+        expect(flag).toBe(true);
+    });
+
+    it('Should append child element on the element', function () {
+        var eleAmount = $('div li p');
+        var childElement = document.createElement('div');
+
+        eleAmount.appendChild(childElement);
+
+        expect($('div li p' + childElement).count).not.toBe(undefined);
+    });
+
+    it('Should return the element in the index', function () {
+        var eleAmount = $('div li p');
+
+        expect(eleAmount.get(0)).toBe(eleAmount.result[0]);
+    });
 });
