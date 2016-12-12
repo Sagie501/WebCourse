@@ -1,15 +1,20 @@
 var dataReader = require('./dataReader');
 var users = [];
 
-dataReader.users().then(function (response) {
-    users = response;
-});
+// function loadUsers () {
+//     return new Promise(function (resolve) {
+//         dataReader.users().then(function (response) {
+//             users = response;
+//             resolve(users);
+//         })
+//     });
+// }
 
 function getUserById (id) {
     var userArr = [];
 
     for (user of users) {
-        if (user._id  === id) {
+        if (user._id === id) {
             userArr.push(user);
             return userArr;
         }
@@ -37,11 +42,13 @@ function addOrRemoveFollower(userId, userIdToAddOrRemove) {
     return users;
 }
 
-
-
-
 function getAllUsers() {
-    return users;
+    return new Promise(function (resolve) {
+        dataReader.users().then(function (response) {
+            users = response;
+            resolve(users);
+        })
+    });
 }
 
 function findUserNameByUsernameAndPassword(username, password) {

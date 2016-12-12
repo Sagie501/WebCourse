@@ -1,8 +1,8 @@
 var dataReader = require('./dataReader');
 var tweets = [];
-dataReader.tweets().then(function (response) {
-    tweets = response;
-});
+// dataReader.tweets().then(function (response) {
+//     tweets = response;
+// });
 
 function getTweetsById(id) {
     let userTweets = [];
@@ -15,7 +15,12 @@ function getTweetsById(id) {
 }
 
 function getAllTweets() {
-    return tweets;
+    return new Promise(function (resolve) {
+        dataReader.tweets().then(function (response) {
+            tweets = response;
+            resolve(tweets);
+        })
+    });
 }
 
 function addTweet(text, user) {

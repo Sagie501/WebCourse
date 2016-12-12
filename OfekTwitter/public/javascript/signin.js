@@ -4,7 +4,8 @@ $('#signInBtn').click(function () {
     tooltipSettings(username, password);
 
     if (validateUser(username, password)) {
-        loginToUserPromise({username: username.val(), password: password.val()}).then(function (res) {
+        getAllUsersPromise().then(function () {
+            loginToUserPromise({username: username.val(), password: password.val()}).then(function (res) {
                 swal({
                     title: 'Welcome back ' + username.val() + "!",
                     text: 'Start tweet with your friends!',
@@ -24,6 +25,7 @@ $('#signInBtn').click(function () {
                 });
                 password.val("");
             });
+        });
     } else {
         tooltipHandler(username, password);
     }

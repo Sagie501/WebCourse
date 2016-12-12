@@ -98,7 +98,7 @@ describe('prototype functions', function () {
 
         eleAmount.appendChild(childElement);
 
-        expect($('div li p' + childElement).count).not.toBe(undefined);
+        expect($('div li p' + childElement)).not.toBe(undefined);
     });
 
     it('Should return the element in the index', function () {
@@ -133,13 +133,13 @@ describe('prototype functions', function () {
     });
 
     it('Should set attribute for each object selected', function () {
-        var eleAmount = $('div li p');
-        var attribute = 'id';
-        var value = 'test';
+        let eleAmount = $('div li p');
+        let attribute = 'id';
+        let value = 'test';
 
         eleAmount.setAttribute(attribute, value);
 
-        var flag = true;
+        let flag = true;
 
         for (element of eleAmount.result) {
             if (!element.attribute == value) {

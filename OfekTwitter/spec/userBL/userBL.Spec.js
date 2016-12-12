@@ -5,12 +5,13 @@ describe("userBL", function () {
     });
 
     describe("Should get a user by ID", function () {
-        it("should return the user if the id is valid", function () {
+        it("should return the user if the id is valid", function (done) {
             var validUserId = "10c06b27-d8ee-4435-9cee-0a2a838ca14a";
 
             var result = userBL.userById(validUserId);
 
             expect(result).not.toBe(undefined);
+            done();
         });
 
         it("should return undefined if id is not valid", function (done) {
