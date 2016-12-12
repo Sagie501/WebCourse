@@ -19,7 +19,7 @@ function routs(app) {
     app.put('/tweets', function (req, res) {
         res.writeHead(200, {'Content-Type': 'text/text'});
         let text = req.body.text.replace(/[<]/g,'&lt').replace(/[>]/g,'&gt');
-        fs.writeFile('./json/tweets.json', JSON.stringify(tweetsBL.addTweet(text,  req.body.user)));
+        fs.writeFile('./json/tweets.json', JSON.stringify(tweetsBL.addTweet(text, req.body.user)));
         res.end("add tweet", 'utf-8');
     });
 }
