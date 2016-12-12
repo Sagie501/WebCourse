@@ -106,4 +106,29 @@ describe('prototype functions', function () {
 
         expect(eleAmount.get(0)).toBe(eleAmount.result[0]);
     });
+
+    it('Should do an action for each object selected', function () {
+        var elements = $('#david-likes li');
+
+        elements.each( function (curr) {
+            curr.classList.add("check");
+        });
+
+        elements.result.forEach(function (curr) {
+            expect(curr.classList.contains('check')).toBe(true);
+        })
+    });
+
+    it('Should do an action for each object selected', function () {
+        var elements = $('#david-likes li');
+
+        var result = elements.map( function (curr) {
+            curr.classList.add("check");
+            return curr;
+        });
+
+        result.forEach(function (curr) {
+            expect(curr.classList.contains('check')).toBe(true);
+        })
+    });
 });
