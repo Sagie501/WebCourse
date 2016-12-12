@@ -60,3 +60,29 @@ function tooltipHandler(username, password) {
         username.tooltip('hide');
     }
 }
+
+// describe("validateUser" ,function () {
+//     it('should return true for good content', function () {
+//         // Arrange
+//         var username = "Testing";
+//         var password = "123";
+//
+//         // Act
+//         var result = validateUser(username, password);
+//
+//         // Assert
+//         expect(result).toBe(true);
+//     });
+//
+//     it('should return false for empty username', function () {
+//         // Arrange
+//         var username = "";
+//         var password = "123";
+//
+//         // Act
+//         var result = validateUser(username, password);
+//
+//         // Assert
+//         expect(result).toBe(false);
+//     });
+// });

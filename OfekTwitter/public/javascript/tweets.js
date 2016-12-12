@@ -68,29 +68,6 @@ let showTweets = function (tweets) {
             });
         })
     });
-    /*axios.get("http://localhost:8000/users/" + myId)
-        .then(function (response) {
-            userFollowing = response.data[0].following;
-        }).then(function () {
-        axios.get('http://localhost:8000/tweets')
-            .then(function (response) {
-                tweets = response.data;
-            }).then(function () {
-            tweets.forEach(function (tweet) {
-                usernamePromises.push(axios.get('http://localhost:8000/users/' + tweet.user).then(function (response) {
-                    tweet.username = response.data[0].username;
-                }))
-            });
-        }).then(function () {
-            axios.all(usernamePromises).then(function () {
-                tweets.forEach(function (tweet) {
-                    if (userFollowing.includes(tweet.user) || tweet.user == myId) {
-                        createTweetHTML(tweet.username, tweet.text, "green");
-                    }
-                })
-            });
-        });
-    });*/
 };
 
 let createTweetHTML = function (userName, tweetContent, color) {
@@ -154,7 +131,30 @@ let validateTweet = function (tweetContent) {
     return tweetContent != null && tweetContent != undefined && tweetContent != "";
 };
 
-// -------------TESTING------------------------------------------------------------------
+// describe("validateTweet" ,function () {
+//     it('should return true for good content', function () {
+//         // Arrange
+//         var content = "Testing";
+//
+//         // Act
+//         var result = validateTweet(content);
+//
+//         // Assert
+//         expect(result).toBe(true);
+//     });
+//
+//     it('should return false for undefined', function () {
+//         // Arrange
+//         var content = undefined;
+//
+//         // Act
+//         var result = validateTweet(content);
+//
+//         // Assert
+//         expect(result).toBe(false);
+//     });
+// });
+/* -------------TESTING------------------------------------------------------------------
 // Testing here because it makes problem with the listener
 let testNewTweet = function () {
     let input = $("#tweetContent");
@@ -185,4 +185,4 @@ let threeTweets = function () {
     return $("#tweets .row").count() === 3;
 };
 
-// ---------------------------------------------------------------------------------------------
+ ---------------------------------------------------------------------------------------------*/

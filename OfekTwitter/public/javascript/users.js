@@ -36,34 +36,13 @@ let showUsers = function () {
             }
         })
     });
-    /*axios.get("http://localhost:8000/users/" + myId)
-     .then(function (response) {
-     userFollowing = response.data[0].following;
-     })
-     .then(function () {
-     axios.get('http://localhost:8000/users')
-     .then(function (response) {
-     users = response.data;
-     for (let index = 0; index < users.length; index++) {
-     if (users[index]._id !== myId) {
-     if (userFollowing.includes(users[index]._id)) {
-     users[index].follow = true;
-     buildFollowe(users[index]);
-     } else {
-     users[index].follow = false;
-     }
-     buildUser(users[index]);
-     }
-     }
-     });
-     });*/
 };
 
 let buildUser = function (user) {
     let usersContainerElement = $("#usersContainer");
     let specificUserContainer = document.createElement("div");
     specificUserContainer.classList.add("col-md-2");
-    specificUserContainer.classList.add(user.username);
+    specificUserContainer.classList.add(user._id);
 
     usersContainerElement.result[0].appendChild(specificUserContainer);
     specificUserContainer.appendChild(build(user));
@@ -73,7 +52,7 @@ let buildFollowe = function (user) {
     let headDiv = $("#following");
     let colDiv = document.createElement("div");
     colDiv.classList.add("col-md-12");
-    colDiv.classList.add(user.username);
+    colDiv.classList.add(user._id);
 
     headDiv.result[0].appendChild(colDiv);
     colDiv.appendChild(build(user));
@@ -128,18 +107,6 @@ let btnClicked = function (btn, user) {
             removeFromList(user.username);
         }
     });
-    /*axios.put("http://localhost:8000/users/following", {userId: myId, userIdToAddOrRemove: user._id})
-     .then(function () {
-     if (!user.follow) {
-     followClicked(btn);
-     user.follow = !user.follow;
-     addToFollowesList(user);
-     } else {
-     unfollowClicked(document.getElementById("btn_" + user.username));
-     user.follow = !user.follow;
-     removeFromList(user.username);
-     }
-     });*/
 };
 
 let followClicked = function (btn) {
